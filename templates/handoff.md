@@ -9,7 +9,8 @@ Project created with the Metaproject template.
 - Working language: {{WORK_LANGUAGE}}
 
 State structure generated: `setup.md`, `router.md`, `agents.md`,
-`conventions.md`, `todo.md`, `handoffs/`, `skills/`.
+`conventions.md`, `todo.md`, `closing/readme.md`, `handoffs/`,
+`skills/`.
 
 ## What's left to do
 

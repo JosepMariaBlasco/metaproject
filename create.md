@@ -54,12 +54,16 @@ Ask the user the following (all in a single interaction):
 3. **Slug** — short prefix for zip filenames (e.g. `yaml`,
    `rexxparser`). Propose one derived from the project name
    (lowercase, no spaces) and let the user confirm or change it.
-4. **User name** — how the user is called (used in the project
-   instructions so that Claude knows who uploads the zips).
+4. **User name** — how the user is called (used in the state
+   files so that Claude knows who uploads the zips).
 5. **Project hosting** — does the project travel in a zip
    together with state (standalone), or is the project zip built
    from a source hosted elsewhere such as a repository or server
    (external)? If external, how is the project zip obtained?
+6. **Skill collections** — does the project use skills from an
+   external collection (a published set of skills on some subject,
+   such as a programming language)? If so, which collection, and
+   which of its skills?
 
 Do not ask about project-specific conventions (naming styles,
 terminology, the language of any identifiers or artefacts, etc.)
@@ -79,13 +83,14 @@ state/
 ├── agents.md
 ├── conventions.md
 ├── todo.md
+├── closing/
+│   └── readme.md       — the startup file, handed over at each session
 ├── handoffs/
 │   └── readme.md
 └── skills/
     ├── core/               — distributed with Metaproject, synchronised by `update`
     ├── personal/           — empty, for the project's own material
-    └── (other skills and subdirectories from Metaproject,
-         copied as reference material — see instructions below)
+    └── (imported skills, if any — see instructions below)
 ```
 
 For each file, use the corresponding template from `templates/`,
@@ -106,43 +111,38 @@ For `setup.md`, use the template that matches the project hosting
 - **Standalone** → `templates/setup-standalone.md`
 - **External** → `templates/setup-external.md`
 
+For `closing/readme.md`, use `templates/readme.md`. For an
+external project, remove from it everything about the project zip
+(the sentence about it, and the `P=` lines of the guard): the project
+is obtained as *Project setup* says, and a stray project zip uploaded
+out of habit must not be unpacked over it.
+
 For `handoffs/readme.md`, copy the one from Metaproject
 directly.
 
-For `skills/`, copy the entire `skills/` folder from
-Metaproject, **except `skills/personal/`** (which is the
-project's own space and never travels from the Metaproject).
-Create an empty `skills/personal/` in the new project as the
-space for anything project-local.
+For `skills/`, copy `skills/core/` from Metaproject and create
+an empty `skills/personal/` as the space for anything
+project-local (the personal layer never travels from Metaproject).
+If the project uses an external collection (step 3.6), obtain an
+exact copy of the chosen skills (the collection's zip or
+repository; ask the user to upload it if the environment cannot
+download it), place them at the root of `skills/`, and add a row
+for each to the *Imported* section of the router, with the
+collection's URL in the **Source** column.
 
 ## Step 5 — Package and deliver
+
+Make sure the output directory exists, then package. Name the zips
+with session number `v1`.
 
 ### Standalone project (travels in zip)
 
 Package state and project separately:
 
 ```bash
+mkdir -p /mnt/user-data/outputs
 cd /home/claude && zip -r /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-v1.zip state/
 cd /home/claude && zip -r /mnt/user-data/outputs/{{PROJECT_SLUG}}-project-YYYYMMDD-v1.zip project/
-```
-
-Remind the user to configure the project Instructions with:
-
-```
-# At the start of each session
-
-{{USER_NAME}} uploads two zips: one for state and one for project.
-Always unzip them to their canonical paths:
-
-\`\`\`bash
-unzip -qo /mnt/user-data/uploads/{{PROJECT_SLUG}}-state*.zip -d /home/claude/
-unzip -qo /mnt/user-data/uploads/{{PROJECT_SLUG}}-project*.zip -d /home/claude/
-\`\`\`
-
-Read `/home/claude/state/setup.md` and `/home/claude/state/handoff.md`.
-
-Interaction language: {{WORK_LANGUAGE}}. Always use this language
-unless the user explicitly switches to another.
 ```
 
 ### External project (hosted elsewhere)
@@ -153,25 +153,30 @@ the session when (and if) the task requires it. The retrieval
 procedure is documented in `setup.md` under *Project setup*, which
 the template leaves as a placeholder for the user to fill in.
 
-Package state only:
-
 ```bash
+mkdir -p /mnt/user-data/outputs
 cd /home/claude && zip -r /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-v1.zip state/
 ```
 
-Remind the user to configure the project Instructions with:
+### The startup file, and the project instructions
+
+Deliver the zip(s), and deliver `/home/claude/state/closing/readme.md`
+**loose**, as a file of its own. Explain to the user how sessions
+start from now on:
+
+> At the start of each session, upload the zip(s) **and** this
+> `readme.md`, loose. It tells Claude how to deploy the zips safely.
+> I will hand you an updated copy at the end of every session.
+
+Then tell the user what to do with the Claude project instructions:
+**do not put any startup instruction there** — no `unzip`, no "read
+setup". Some orchestrators reinject the project instructions on
+every turn, and an `unzip` reinjected mid-session overwrites the
+session's work with the incoming zip (see *Session startup* in
+`setup.md`). The instructions may stay empty, or hold only things
+that do no harm if repeated on every turn, such as:
 
 ```
-# At the start of each session
-
-{{USER_NAME}} uploads a state zip. Always unzip it to `/home/claude/state/`:
-
-\`\`\`bash
-unzip -qo /mnt/user-data/uploads/{{PROJECT_SLUG}}-state*.zip -d /home/claude/
-\`\`\`
-
-Read `/home/claude/state/setup.md` and `/home/claude/state/handoff.md`.
-
 Interaction language: {{WORK_LANGUAGE}}. Always use this language
 unless the user explicitly switches to another.
 ```
@@ -181,8 +186,7 @@ unless the user explicitly switches to another.
 Inform the user of what has been generated and ask if they want
 to adjust anything before closing.
 
-When the session ends, apply the session closing protocol
-described in the `setup.md` you just generated: move the
-current `handoff.md` to `handoffs/` with the standard naming
-convention, write a new `handoff.md` reflecting what was done,
-and repackage the state zip.
+This first session is session `v1`. The `handoff.md` generated
+from the template is its handoff: it is archived at the end of the
+*next* session, under its own number, following the closing
+protocol in the `setup.md` you just generated.

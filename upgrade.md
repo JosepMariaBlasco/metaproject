@@ -21,6 +21,18 @@ Read `/home/claude/state/setup.md` and look for the marker:
 This line appears near the top, under the title. If the marker
 is absent, the state predates versioning — treat it as **v1**.
 
+Some states carry a hybrid marker of the form
+
+```
+*Metaproject standard: v3 + reinjection-proof startup (adopted from
+the LLMs chain on DD/MM/YYYY; not yet in Metaproject).*
+```
+
+These adopted the v5 startup and closing rules by hand before v5
+existed. Treat them as **v3**: apply `upgrade3-4` as usual, and
+`upgrade4-5` will recognise what is already in place and complete
+only what is missing.
+
 ## Available hops and current standard
 
 The current version of the standard is recorded in two redundant

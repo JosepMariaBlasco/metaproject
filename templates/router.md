@@ -32,18 +32,19 @@ every skill available.
 | Edit the todo list | `/home/claude/state/skills/core/edit-todo.md` |
 | Write the session's handoff | `/home/claude/state/skills/core/write-handoff.md` |
 
-### Project-specific
+### Imported
 
-*Add rows here for the skills this project actually uses.
-Examples of skill categories a project might activate: a language
-reference, a publishing pipeline, a domain glossary, a workflow
-specific to the project. Activate only what the project uses —
-the rest stay inactive. Remove this placeholder once real rows
-are added.*
+*Skills imported from an external collection — a set of skills
+published and maintained elsewhere, with their own upstream (a
+website, a repository). They live at the root of `skills/` (or in a
+subdirectory, for a skill with a subrouter). The **Source** column
+records where each one comes from: `update` uses it to synchronise
+the skill with its upstream. List only the skills the project
+actually uses. Remove this placeholder once real rows are added.*
 
-| You need to... | Read... |
-|---|---|
-| *(example row, replace with something real)* | `/home/claude/state/skills/some-skill.md` |
+| You need to... | Read... | Source |
+|---|---|---|
+| *(example row, replace with something real)* | `/home/claude/state/skills/some-skill.md` | *(collection URL)* |
 
 ### Personal
 
@@ -69,9 +70,9 @@ uses them. Remove a row only if a skill is inactive on purpose
 
 1. Keep the **Core** section as is — those skills apply to every
    project and should always be active.
-2. Add a row to **Project-specific** for each skill your project
-   uses (any skill at the root or in a subdirectory other than
-   `core/` and `personal/`).
+2. Add a row to **Imported** for each skill imported from an
+   external collection (any skill at the root or in a subdirectory
+   other than `core/` and `personal/`), with its **Source**.
 3. The **Personal** section lists, by default, every skill in
    `/home/claude/state/skills/personal/` — these are the
    project's own skills and exist because the project uses them.

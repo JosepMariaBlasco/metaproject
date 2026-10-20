@@ -1,6 +1,6 @@
 # Setup — {{PROJECT_NAME}}
 
-*Metaproject standard: v4.*
+*Metaproject standard: v5.*
 
 This project works with two independent zips. The **state zip**
 contains cross-session continuity: handoffs, conventions, pending
@@ -18,6 +18,30 @@ it.
 |---|---|
 | State zip | → `/home/claude/state/` |
 | Project zip | → `/home/claude/project/` |
+
+## Session startup — reinjection-proof
+
+The startup instruction (unzipping the state zip) does **not** live in
+the project instructions. Some orchestrators reinject the project
+instructions on **every turn**, not just the first; an `unzip -o`
+reinjected mid-session would overwrite the live, edited state on
+disk with the incoming (older) zip, silently destroying the
+session's work.
+
+The startup instruction lives instead in `closing/readme.md`, which
+{{USER_NAME}} hands over, loose, together with the state zip at the
+start of each session. It wraps the decompression in a guard anchored to
+this file (`if [ ! -f /home/claude/state/setup.md ]; then … fi`), and
+looks for the uploads both in `/mnt/user-data/uploads/` and in
+`/root/.claude/uploads/` (where some environments place them, with a
+hash prefix in the file name).
+
+`setup.md` is the anchor precisely because it is always present and
+the closing routine never moves or renames it. The guard makes the
+decompression idempotent: running it N times equals running it once.
+If state ever appears to "revert" to an older version mid-session,
+that is the reinjection bug — do **not** decompress again; restore
+from your working copy and continue.
 
 ## Inbox files
 
@@ -57,6 +81,15 @@ for the framework — shall I note it in the feedback mailbox?") and,
 only with the user's approval, append it here. Never record it
 unprompted.
 
+### `interim-vN.md`
+
+If this file exists, the state zip you were given is an **interim
+packaging** of session vN, which never reached its close (see
+*Intermediate packaging* below). Read it and tell the user. This
+session is the **rescue** of vN, not session v(N+1): it continues
+vN's work and closes with vN's number. At close, fold the content
+of `interim-vN.md` into the new handoff and delete the file.
+
 ## State files
 
 - `setup.md` — this file.
@@ -68,31 +101,37 @@ unprompted.
 - `skills/` — skill collection. See the router for the structure
   and what is active.
 - `router.md` — skill router pointing to the correct documents.
+- `closing/readme.md` — the startup file {{USER_NAME}} hands over
+  at the start of each session. See *Session startup* above.
 - `pending-tasks.md` — present only when a previous session left
-  something to be picked up. See the section above.
+  something to be picked up. See the Inbox files section above.
 - `framework-feedback.md` — present only when this project has
   recorded feedback about the framework, waiting to be collected
   by the maintainer. See the Inbox files section above.
+- `interim-vN.md` — present only in an interim packaging of a
+  session that has not closed yet. Not a handoff. See the Inbox
+  files section above.
 
 ## What to read on startup
 
-After this file, the handoff, and the router you have enough
-context to get started. Read the router (`router.md`) at startup
-too: it is not content but the index of content — the map of which
-skills and documents exist and when to read them — so deferring it
-would mean not knowing what you might need. Do not read anything
-else from state preventively — the rest is for on-demand
-reference:
+Read four files at startup: this file, the handoff, the
+conventions and the router. The conventions (`conventions.md`) are
+read preventively because they apply to any work in the project;
+deciding whether they are needed would require knowing what they
+say. The router (`router.md`) is not content but the index of
+content — the map of which skills and documents exist and when to
+read them — so deferring it would mean not knowing what you might
+need. Do not read anything else from state preventively — the rest
+is for on-demand reference:
 
-- `/home/claude/state/conventions.md`
 - `/home/claude/state/agents.md`
 - `/home/claude/state/todo.md`
 - `/home/claude/state/skills/`
 - `/home/claude/state/handoffs/`
 
-Look things up when you need them: conventions and project map
-when you're about to modify the project, the to-do list if the
-session has no clear goal from the start.
+Look things up when you need them: the project map when you're
+about to modify the project, the to-do list if the session has no
+clear goal from the start.
 
 ## Project setup
 
@@ -106,33 +145,88 @@ to read or modify the project runs the block that obtains it; one that
 runs tests runs that block too, and so on. The goal is that nothing
 is installed or downloaded speculatively.*
 
+## Intermediate packaging
+
+Long sessions can die before they close (the context fills up, the
+environment is reclaimed), and the work done since the last
+packaging dies with them. When enough work has accumulated that
+losing it would hurt (a milestone, new files, substantial
+decisions), before a long pause, or when the user asks about the
+context, **propose** an interim packaging; the user decides.
+
+1. Write or update `/home/claude/state/interim-vN.md`, where `vN`
+   is the number this session will close with: a short note — not
+   a handoff — with what has been done so far, stating that the
+   session is still open.
+2. Package the state zip, complete, as
+   `{{PROJECT_SLUG}}-state-YYYYMMDD-vN-interim.zip`, after removing
+   any earlier interim zip from the output directory. Work on the
+   project itself is saved to its external source as usual (for a
+   repository: committed and pushed).
+3. Deliver it to the user.
+
+Do not archive or touch `handoff.md` during an interim packaging.
+
 ## At the end of each session
 
 * Update `/home/claude/state/agents.md` if the project's structure has changed.
 
-* The handoff is a single piece with two states: live (at the
-  state root, as `handoff.md`) or archived (in `handoffs/`, named
-  `handoff-YYYYMMDD-vN.md`). At any given moment it exists in
-  exactly one of the two places, never both. Archiving means
-  moving, not copying.
+* The version `vN` is an absolute counter: a monotonic session
+  number that increments once per session across the whole project
+  history, not a per-day counter. If you started the session reading
+  handoff `vN`, you close as `v(N+1)`, and each handoff is archived
+  under **its own** number and date — those of the session that
+  wrote it.
 
-* Before packaging: archive the live handoff by moving
-  `/home/claude/state/handoff.md` to
-  `/home/claude/state/handoffs/handoff-YYYYMMDD-vN.md`, where
-  `vN` is the session number that *wrote* it — a monotonic
-  counter that increments once per session across the whole
-  project history, not a per-day counter. The date is whatever
-  day the handoff is being written. Then write a new
-  `/home/claude/state/handoff.md` reflecting what was done in
-  this session.
+* Verify handoff continuity before archiving. List
+  `/home/claude/state/handoffs/` and confirm that the incoming
+  handoff's number is exactly the next after the highest archived
+  one, with no number missing below it. If you find a gap or any
+  other break in the sequence, **stop**: do not archive, do not
+  package, do not close. Tell the user exactly what you found and
+  wait for their explicit confirmation.
+
+* Archive the handoff **by copy, never by move**, so that state is
+  never left without a `handoff.md`, not even for an instant:
+
+  1. Copy `/home/claude/state/handoff.md` to
+     `/home/claude/state/handoffs/handoff-YYYYMMDD-vN.md` (date and
+     number of the incoming handoff). Verify the copy exists.
+  2. Only then overwrite `/home/claude/state/handoff.md` with the
+     new handoff, reflecting what was done in this session. If an
+     `interim-vN.md` exists, fold its content into the new handoff
+     and delete it.
 
 * Package the complete state zip (all files in
   `/home/claude/state/`, not just the ones that changed). Name:
-  `{{PROJECT_SLUG}}-state-YYYYMMDD-vN.zip`, using the same
-  session number as the handoff. Always
-  package from `/home/claude/` so that the zip contains `state/`
-  as its root directory:
+  `{{PROJECT_SLUG}}-state-YYYYMMDD-vN.zip`, using this session's
+  number. Make sure the output directory exists, and always package
+  from `/home/claude/` so that the zip contains `state/` as its root
+  directory:
 
   ```bash
+  mkdir -p /mnt/user-data/outputs
   cd /home/claude && zip -r /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-vN.zip state/
   ```
+
+* Verify that the outgoing state zip keeps every archived handoff
+  the incoming one had, plus the one just archived. Handoffs have
+  been lost before by erosion between repackagings, not only by a
+  single failure:
+
+  ```bash
+  IN=$(find /mnt/user-data/uploads /root/.claude/uploads -name '*{{PROJECT_SLUG}}-state-*.zip' 2>/dev/null | head -1)
+  unzip -l "$IN" | grep -c 'state/handoffs/handoff-'
+  unzip -l /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-vN.zip | grep -c 'state/handoffs/handoff-'
+  ```
+
+  The second count must be the first plus one. If it is not, stop
+  and tell the user.
+
+* Deliver the state zip, and deliver `/home/claude/state/closing/readme.md`
+  **loose**, as a file of its own outside the zip, so that
+  {{USER_NAME}} has it at hand before anything is decompressed next
+  session. It cannot be read from inside the state zip without
+  first decompressing — the very thing it explains how to do — so it
+  travels both ways: inside the zip (canonical copy) and loose at
+  every close.

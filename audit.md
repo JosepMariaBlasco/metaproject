@@ -20,6 +20,9 @@ state/
 ├── todo.md
 ├── pending-tasks.md        (inbox file: present only when work is pending)
 ├── framework-feedback.md   (inbox file: present only when feedback is pending)
+├── interim-vN.md           (inbox file: present only in an interim packaging)
+├── closing/
+│   └── readme.md           (startup file)
 ├── handoffs/
 │   ├── readme.md
 │   └── handoff-*.md
@@ -28,14 +31,14 @@ state/
     │   └── *.md
     ├── personal/           (not distributed, optional)
     │   └── *.md
-    ├── *.md                (distributed examples)
-    └── subdir/             (optional: subrouters with their skills)
+    ├── *.md                (optional: imported from external collections)
+    └── subdir/             (optional: imported skills with a subrouter)
         └── *.md
 ```
 
 Reports missing files and unexpected files (those not part of
 the standard). Note the **inbox files** (`pending-tasks.md`,
-`framework-feedback.md`): these exist only when something is
+`framework-feedback.md`, `interim-vN.md`): these exist only when something is
 pending, so their *absence* is normal and never a deviation.
 Their *presence* is expected and must not be reported as an
 unexpected file.
@@ -77,16 +80,38 @@ audit proceeds.
   report but do not empty). A setup still carrying only the v3
   *Pending tasks* section is on an older version — report it and
   point to `upgrade.md`.
-- Does it have the state files section, and does it list the
-  inbox files (`pending-tasks.md`, `framework-feedback.md`)?
+  At v5 the family also includes `interim-vN.md`, with its rescue
+  protocol.
+- Does it have the **Session startup — reinjection-proof** section
+  (v5), pointing to `closing/readme.md`?
+- Does it have the state files section, and does it list
+  `closing/readme.md` and the inbox files (`pending-tasks.md`,
+  `framework-feedback.md`, `interim-vN.md`)?
 - Does it have the what-to-read-on-startup section, and does it
-  name the **router** as a startup read (not as an on-demand
-  one)? At v4 the router is a startup read; a setup that still
-  lists `router.md` among the on-demand reads is on an older
-  version — report it and point to `upgrade.md`.
+  name four startup reads: setup, handoff, **conventions** and
+  **router**? At v4 the router became a startup read; at v5 the
+  conventions did too. A setup that still lists either among the
+  on-demand reads is on an older version — report it and point to
+  `upgrade.md`.
 - Does it have the project setup section?
-- Does it have the session closing protocol?
+- Does it have the **Intermediate packaging** section (v5)?
+- Does it have the session closing protocol, and does it include
+  the v5 elements: continuity check before archiving, archiving
+  **by copy** (not by move), `mkdir -p` of the output directory,
+  the check that the outgoing zip keeps every archived handoff, and
+  delivering `closing/readme.md` loose? A protocol that still says
+  "archiving means moving" is on an older version.
 - Are the paths mentioned absolute and correct?
+
+### Startup file
+
+- Does `closing/readme.md` exist, with the project's slug in the
+  `find` patterns of its guard? Does its list of startup reads
+  match the *What to read on startup* section of `setup.md`?
+- Ask the user whether the Claude project instructions still hold
+  any startup instruction (unzipping, reading setup). If they do,
+  report it: it is the reinjection hazard the startup file exists
+  to remove.
 
 ### Handoffs
 
@@ -94,6 +119,10 @@ audit proceeds.
   (what's been done, what's left)?
 - Do the archived handoffs follow the naming convention
   (`handoff-YYYYMMDD-vN.md`)?
+- Is the sequence continuous? List the `vN` of the archived
+  handoffs and report any number missing between v1 and the
+  highest. A gap is a lost handoff; report it, do not try to fill
+  it.
 
 ### Router
 
@@ -102,6 +131,9 @@ audit proceeds.
 - If a row points to a subrouter (an `.md` with an associated
   subdirectory), does the subdirectory exist and does it contain
   the skills the subrouter references?
+- Does every row in the *Imported* section have a **Source**?
+  Report rows without one (they cannot be synchronised by
+  `update`).
 - Are there skills in `skills/` (root or subdirectories other
   than `core/` and `personal/`) that have no row in the router
   (neither directly nor through a subrouter)?
@@ -125,6 +157,11 @@ audit proceeds.
 ### Conventions
 
 - Does it define the working language?
+- Does it carry the standard conventions (v5): numeric dumps as
+  files, intermediate packaging, and — if the project has a
+  repository — git attribution without session links? Report
+  missing ones for visibility; the project may have dropped one on
+  purpose.
 - Is the *Project-specific conventions* section present? Report
   whether it has been filled in or still holds the placeholder
   text — the section is open by design, so an unfilled placeholder

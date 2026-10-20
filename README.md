@@ -14,7 +14,8 @@ picks up where the last session left off, and keeps working.
 
 Metaproject includes protocols for creating this structure
 from scratch, migrating existing projects, auditing conformity,
-and keeping shared skills in sync across projects.
+upgrading between versions of the standard, and keeping skills in
+sync with their upstreams.
 
 ## Operations
 
@@ -23,7 +24,7 @@ and keeping shared skills in sync across projects.
 | Create state for a new project | `create.md` |
 | Migrate an existing project to the standard | `migrate.md` |
 | Audit a project's conformity | `audit.md` |
-| Synchronise distributed material with a new version | `update.md` |
+| Synchronise a project's skills with their upstreams | `update.md` |
 | Upgrade a project to a newer version of the standard | `upgrade.md` |
 
 Each document is self-contained — read it and follow it step
@@ -32,8 +33,9 @@ by step.
 ## How to invoke an operation
 
 Metaproject operations run inside a Claude session. The mechanics
-are always the same: upload the Metaproject zip at the start of
-the session and tell Claude to follow the relevant document
+are always the same: give Claude the framework at the start of the
+session (upload its zip, or let Claude clone this repository) and
+tell Claude to follow the relevant document
 (`create.md`, `migrate.md`, `audit.md`, `update.md`, or
 `upgrade.md`). Each document is written as an instruction set for
 Claude — not a manual for the user — and drives the session end
@@ -46,36 +48,42 @@ itself: the choice of document is the protocol.
 
 - `templates/` — templates used by `create.md` and `migrate.md`
   to generate the state files.
-- `skills/` — skill collection, copied to each project. The three
-  layers have different origins and lifecycles:
+- `skills/` — the framework's own skills, copied to each project:
   - `skills/core/` — skills about the metaproject's own processes
     (how to maintain the todo, how to write handoffs, etc.). These
     are distributed with Metaproject and synchronised by `update`.
-  - `skills/*.md` and subdirectories at the root — example skills
-    shipped with Metaproject. Also distributed and synchronised.
-    Activate the ones that matter in this project; leave the rest
-    inactive or remove them if they are clearly irrelevant.
-  - `skills/personal/` — the project's own skills, never travelled
-    from Metaproject and never synchronised back. This is the space
-    for anything project-local.
+  - `skills/personal/` — a placeholder for the project's own
+    skills, which never travel from Metaproject and are never
+    synchronised back.
 
-  Distributed skills at the root and in subdirectories (not
-  `core/`) carry a YAML frontmatter with `name` and `description`
-  fields, following the Claude Code convention. The `description`
-  helps decide whether the skill is worth activating in a given
-  project. Core skills omit the frontmatter — they are always
-  active and do not need to be advertised.
+  Metaproject does not ship domain skills (a language reference, a
+  deployment recipe, a publishing pipeline). Those are published
+  and maintained in their own **skill collections**, and a project
+  imports the ones it uses: they live at the root of the project's
+  `skills/`, and the router records the collection each one comes
+  from, so that `update` can keep them in sync. An example of a
+  collection that works this way is
+  [Rexx Skills](https://rexx.epbcn.com/skills/), skills for working
+  with ooRexx and Regina.
+
+  Skills meant to be imported usually carry a YAML frontmatter with
+  `name` and `description` fields, following the Claude Code
+  convention; the `description` helps decide whether a skill is
+  worth importing. Core skills omit the frontmatter — they are
+  always active and do not need to be advertised.
 - `handoffs/` — template for the handoffs directory that gets
   copied to each new project.
+- `doc/` — the article describing Metaproject's design (see
+  *Further reading*).
 
 ## Working on Metaproject itself
 
 If you are working on the framework itself (not on a project
 derived from it), Metaproject is set up as a Metaproject project
-of its own: it has a state zip alongside the framework zip, and
-the session starts by reading `setup.md` and `handoff.md` from
-state. This is the same protocol as any derived project — the
-framework eats its own dogfood.
+of its own, in external mode: the project is this repository, and
+its state travels separately, in a private state zip that is not
+part of the repository. The session starts the same way as in any
+derived project — the framework eats its own dogfood.
 
 ## Further reading
 

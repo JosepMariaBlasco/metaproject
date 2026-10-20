@@ -44,6 +44,8 @@ state/
 ├── agents.md           — map of the project's material
 ├── conventions.md      — working language and project conventions
 ├── todo.md             — to-dos ordered by priority
+├── closing/
+│   └── readme.md       — startup file, handed over at each session
 ├── handoffs/
 │   ├── readme.md       — handoff mechanics
 │   └── handoff-*.md    — history (never deleted)
@@ -52,8 +54,8 @@ state/
     │                     (distributed, synchronised by `update`)
     ├── personal/       — the project's own skills
     │                     (never travelled, never synchronised)
-    ├── *.md            — example skills (distributed)
-    └── subdir/         — subrouter skills (distributed)
+    ├── *.md            — imported skills (from external collections)
+    └── subdir/         — imported skills with a subrouter
 ```
 
 **Note on skills:** the `skills/` folder contains the full
@@ -68,10 +70,12 @@ lifecycles:
   (how to maintain the todo, how to write handoffs, etc.). These
   are distributed with Metaproject and synchronised by
   `update`.
-- `skills/*.md` and subdirectories at the root — example skills
-  shipped with Metaproject. Also distributed and synchronised.
-  Activate the ones that matter in this project; leave the rest
-  inactive or remove them if they are clearly irrelevant.
+- `skills/*.md` and subdirectories at the root — skills imported
+  from external collections (published sets of skills on some
+  subject, maintained elsewhere). Each has a row in the router's
+  *Imported* section, whose **Source** column names its collection;
+  `update` synchronises them against it. Metaproject itself does not
+  ship domain skills.
 - `skills/personal/` — the project's own skills, never travelled
   from Metaproject and never synchronised back. This is the space
   for anything project-local.
@@ -109,10 +113,10 @@ Also identify the **project hosting**:
 
 - **Standalone** — the project zip is shipped together with state
   and produced at session close. At session close, two zips must
-  be packaged. The project Instructions must unzip both.
+  be packaged, and the startup file deploys both.
 - **External** — the project zip is built from a source hosted
   elsewhere (a repository, a server, or similar) rather than
-  shipped with state. The Instructions unzip state; setup
+  shipped with state. The startup file deploys state; setup
   documents how to obtain the project zip and unzip it at the
   canonical path. At session close, only the state zip is
   repackaged.
@@ -132,6 +136,11 @@ is to leave the Files section empty, if at all possible:
 everything that matters should travel in the zips, where it is
 versioned and under control. If `/mnt/project/` is empty, no
 need to mention it.
+
+If the project already has skills, classify each one: does it come
+from an external collection (then it is an imported skill, and its
+collection is its **Source**), or is it the project's own (then it
+goes to `skills/personal/`)?
 
 Also look for information that has no equivalent in the standard
 (such as release notes, decision logs, or any project-specific
@@ -176,24 +185,23 @@ Apply the agreed changes. After each change:
 
 When done (or at the end of each session if the migration spans
 multiple sessions), apply the session closing protocol described
-in the `setup.md` that has been generated or migrated: move the
-current `handoff.md` to `handoffs/` with the standard naming
-convention, write a new `handoff.md` reflecting what was done,
-and package the state zip.
+in the `setup.md` that has been generated or migrated (continuity
+check, archiving by copy, new handoff, packaging, and the startup
+file delivered loose).
 
 ## Phase 6 — Verification
 
 When the migration is complete:
 
 1. Present the final structure to the user.
-2. Remind them to update the Claude project Instructions.
-   The Instructions depend on project hosting:
-   - **Standalone**: unzip two zips (state + project).
-   - **External**: unzip state only. The project zip is retrieved
-     during the session when the task requires it, following what
-     `setup.md` documents under *Project setup*.
-   Use the Instructions models from `create.md` (step 5) as
-   reference.
+2. Generate `closing/readme.md` from `templates/readme.md`, and
+   tell the user how sessions start from now on: upload the zip(s)
+   **and** that `readme.md`, loose, at the start of each session.
+   Then ask them to **remove every startup instruction from the
+   Claude project instructions** (unzipping, reading setup): some
+   orchestrators reinject them on every turn, and a reinjected
+   `unzip` overwrites the session's work. See `create.md` (step 5)
+   for the wording.
 3. Verify that `setup.md` contains the version marker for the
    current Metaproject standard (line `*Metaproject standard:
    vN.*` near the top). The templates in `templates/` already
