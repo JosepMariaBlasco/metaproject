@@ -28,7 +28,8 @@ project, in any language.
 
 ## Get started
 
-1. Download [`metaproject-latest.zip`](https://rexx.epbcn.com/metaproject/metaproject-latest.zip)
+1. Download the zip of the
+   [latest release](https://github.com/JosepMariaBlasco/metaproject/releases/latest)
    (or clone this repository).
 2. In the Claude app, open a new project and a new conversation.
    Upload the zip and say: *"Unzip this and follow `create.md`."*
@@ -68,7 +69,7 @@ repository, and its own state travels separately, in a private zip.
 Metaproject was presented at the 37th International Rexx Language
 Symposium (Barcelona, May 2026), in the article *Metaproject — On
 keeping state between sessions*:
-[source](doc/article.md), [HTML](https://rexx.epbcn.com/metaproject/article.md),
+[source](doc/article.md),
 [PDF](https://www.epbcn.com/pdf/josep-maria-blasco/2026-05-04-Metaproject.pdf).
 The article describes version 3 of the standard and is kept as it
 was presented, for its historical value; the documentation above

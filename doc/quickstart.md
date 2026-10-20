@@ -5,9 +5,10 @@ Claude app and nothing else.
 
 ## 1. Get the framework
 
-Download
-[`metaproject-latest.zip`](https://rexx.epbcn.com/metaproject/metaproject-latest.zip),
-or clone [the repository](https://github.com/JosepMariaBlasco/metaproject).
+Download the zip of the
+[latest release](https://github.com/JosepMariaBlasco/metaproject/releases/latest)
+from GitHub, or clone
+[the repository](https://github.com/JosepMariaBlasco/metaproject).
 Do not unzip it yourself: Claude will.
 
 ## 2. Create the project
