@@ -86,3 +86,10 @@ presented at the 37th International Rexx Language Symposium
 [`doc/article.md`](doc/article.md); it is also available as
 [HTML](https://rexx.epbcn.com/metaproject/) and as a
 [PDF](https://www.epbcn.com/pdf/josep-maria-blasco/2026-05-04-Metaproject.pdf).
+
+## License
+
+Copyright 2026 Josep Maria Blasco.
+
+Licensed under the Apache License, Version 2.0. See
+[`LICENSE`](LICENSE) for the full text.
