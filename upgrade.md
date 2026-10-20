@@ -24,12 +24,11 @@ is absent, the state predates versioning — treat it as **v1**.
 Some states carry a hybrid marker of the form
 
 ```
-*Metaproject standard: v3 + reinjection-proof startup (adopted from
-the LLMs chain on DD/MM/YYYY; not yet in Metaproject).*
+*Metaproject standard: v3 + reinjection-proof startup (…).*
 ```
 
 These adopted the v5 startup and closing rules by hand before v5
-existed. Treat them as **v3**: apply `upgrade3-4` as usual, and
+existed, copying them from another project. Treat them as **v3**: apply `upgrade3-4` as usual, and
 `upgrade4-5` will recognise what is already in place and complete
 only what is missing.
 
@@ -131,5 +130,7 @@ is nothing to do — tell the user and stop.
   prefers to stop between hops, stop — upgrades do not need to
   finish in one session.
 - **Each hop is self-contained.** An `upgradeN-M.md` assumes the
-  state is exactly at vN and leaves it exactly at vM. It does
-  not skip versions and does not know about other hops.
+  state is at vN and leaves it exactly at vM. It does not skip
+  versions. The one allowance: a hop may recognise pieces of vM
+  that a state adopted by hand ahead of time, and then completes
+  only what is missing (see the hybrid marker above).

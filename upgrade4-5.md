@@ -103,13 +103,15 @@ Create `/home/claude/state/closing/readme.md` from
 `templates/readme.md`, substituting `{{PROJECT_NAME}}`,
 `{{PROJECT_SLUG}}` (the prefix of the project's zips — look it up in
 `setup.md`) and `{{USER_NAME}}`. For an external project, remove
-everything about the project zip (the sentence about it, and the
-`P=` lines of the guard).
+everything about the project zip (the sentence about it, and every line of
+the guard that handles `$P`).
 
 If the file already exists (adopted by hand), bring it in line with
-the template: the guard must stop when it does not find exactly one
-state zip, and the startup reads must be four — setup, handoff,
-conventions and router.
+the template: the guard must use exact name patterns, take the
+newest zip when there is more than one (and say so), and stop when
+there is none; the startup reads must be four — setup, handoff,
+conventions and router. Replacing the hand-adopted file with the
+template is usually simplest.
 
 Run the `find` of the guard, with the slug substituted, and check
 that it finds this session's zips.
@@ -174,8 +176,9 @@ or a **personal** one.
    its row to the router's *Personal* section) or removing it. Do
    nothing without the user's decision.
 4. Inactive skills (present in `skills/` but with no router row)
-   that came from Metaproject are no longer distributed. Propose
-   removing them; the user decides.
+   that came from Metaproject — those named in the table above —
+   are no longer distributed. Propose removing them; the user
+   decides. For any other inactive skill, ask the user.
 
 The comparison of each imported skill with its collection is done
 by `update`, which the orchestrator proposes after the last hop.
@@ -195,9 +198,8 @@ user's decision.
 
 ### 6. Update the version marker
 
-Change the version marker near the top of `setup.md` — whether it
-reads `*Metaproject standard: v4.*` or still carries a hybrid
-`v3 + reinjection-proof startup (…)` text — to:
+Change the version marker near the top of `setup.md` from
+`*Metaproject standard: v4.*` to:
 
 ```
 *Metaproject standard: v5.*
@@ -207,8 +209,14 @@ reads `*Metaproject standard: v4.*` or still carries a hybrid
 
 1. **Remove every startup instruction from the Claude project
    instructions** (unzipping, reading setup). They may stay empty,
-   or hold only things that do no harm if repeated on every turn,
-   such as the interaction language.
+   or hold only things that do no harm if repeated on every turn.
+   Recommend this line, which acts only before state exists and
+   lets a fresh session find the startup file by itself:
+
+   ```
+   If `/home/claude/state/setup.md` does not exist yet, look for an
+   uploaded `readme.md` and follow it.
+   ```
 2. **From now on, at the start of each session, upload the zip(s)
    and `closing/readme.md`, loose.** Claude delivers an updated copy
    of it at the end of every session.
@@ -228,7 +236,16 @@ reads `*Metaproject standard: v4.*` or still carries a hybrid
   with it.
 - The version marker says v5.
 
-### 9. Done
+### 9. Gaps in `handoffs/`
+
+The v5 closing protocol stops at any gap in the handoff sequence.
+States that lost handoffs before v5 will hit it at the close of this
+very session. Run the continuity check now, show the user any gap,
+and, for each one the user confirms as lost for good, write the
+tombstone described in the closing protocol. Then the close can go
+ahead.
+
+### 10. Done
 
 The state is now at v5. Control returns to the orchestrator. This
 session already closes with the v5 protocol; it is the first time

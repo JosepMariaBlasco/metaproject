@@ -107,7 +107,9 @@ audit proceeds.
 
 - Does `closing/readme.md` exist, with the project's slug in the
   `find` patterns of its guard? Does its list of startup reads
-  match the *What to read on startup* section of `setup.md`?
+  match the *What to read on startup* section of `setup.md`? In an
+  external project, is it free of project-zip lines (a stray
+  project zip must not be unpacked over the project)?
 - Ask the user whether the Claude project instructions still hold
   any startup instruction (unzipping, reading setup). If they do,
   report it: it is the reinjection hazard the startup file exists
@@ -122,7 +124,9 @@ audit proceeds.
 - Is the sequence continuous? List the `vN` of the archived
   handoffs and report any number missing between v1 and the
   highest. A gap is a lost handoff; report it, do not try to fill
-  it.
+  it. (A *tombstone* — a `handoff-…-vK.md` titled `# Handoff vK —
+  lost` — is a gap the user has already confirmed; it is not a
+  deviation.)
 
 ### Router
 

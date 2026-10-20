@@ -183,25 +183,33 @@ Apply the agreed changes. After each change:
   its old name).
 - Verify that the resulting structure is coherent.
 
+Generate `closing/readme.md` from `templates/readme.md` as soon as
+`setup.md` exists (for an external project, remove from it
+everything about the project zip: the sentence about it, and every line of
+the guard that handles `$P`).
+
 When done (or at the end of each session if the migration spans
 multiple sessions), apply the session closing protocol described
 in the `setup.md` that has been generated or migrated (continuity
 check, archiving by copy, new handoff, packaging, and the startup
-file delivered loose).
+file delivered loose). The check of handoffs in the outgoing zip
+needs an incoming state zip in the standard format; in the first
+session of a migration there is none, and the check is skipped.
 
 ## Phase 6 — Verification
 
 When the migration is complete:
 
 1. Present the final structure to the user.
-2. Generate `closing/readme.md` from `templates/readme.md`, and
-   tell the user how sessions start from now on: upload the zip(s)
+2. Check that `closing/readme.md` exists (see Phase 5), and tell
+   the user how sessions start from now on: upload the zip(s)
    **and** that `readme.md`, loose, at the start of each session.
    Then ask them to **remove every startup instruction from the
    Claude project instructions** (unzipping, reading setup): some
    orchestrators reinject them on every turn, and a reinjected
-   `unzip` overwrites the session's work. See `create.md` (step 5)
-   for the wording.
+   `unzip` overwrites the session's work. Recommend instead the
+   harmless line that points to the startup file; see `create.md`
+   (step 5) for the wording.
 3. Verify that `setup.md` contains the version marker for the
    current Metaproject standard (line `*Metaproject standard:
    vN.*` near the top). The templates in `templates/` already

@@ -3,8 +3,8 @@
 How the `handoff.md` at the state root is written.
 
 Read this when you are about to write or edit the current
-handoff. The mechanics of archiving (when to move, how to name)
-live in `handoffs/readme.md` — this skill is about what goes
+handoff. The mechanics of archiving (when and how to archive, how
+to name) live in `handoffs/readme.md` — this skill is about what goes
 inside the file.
 
 ## Purpose of a handoff

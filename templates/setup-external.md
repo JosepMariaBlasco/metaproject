@@ -36,6 +36,12 @@ looks for the uploads both in `/mnt/user-data/uploads/` and in
 `/root/.claude/uploads/` (where some environments place them, with a
 hash prefix in the file name).
 
+The project instructions hold no startup instruction. At most they
+carry a line that is harmless when reinjected, because it only acts
+before state exists: *"If `/home/claude/state/setup.md` does not
+exist yet, look for an uploaded `readme.md` and follow it."*
+Otherwise {{USER_NAME}} tells you to follow the readme.
+
 `setup.md` is the anchor precisely because it is always present and
 the closing routine never moves or renames it. The guard makes the
 decompression idempotent: running it N times equals running it once.
@@ -83,12 +89,15 @@ unprompted.
 
 ### `interim-vN.md`
 
-If this file exists, the state zip you were given is an **interim
-packaging** of session vN, which never reached its close (see
-*Intermediate packaging* below). Read it and tell the user. This
-session is the **rescue** of vN, not session v(N+1): it continues
-vN's work and closes with vN's number. At close, fold the content
-of `interim-vN.md` into the new handoff and delete the file.
+If a file `interim-vK.md` exists (for some number K), the state zip
+you were given is an **interim packaging** of session vK, which never
+reached its close (see *Intermediate packaging* below). Read it and
+tell the user. This session is the **rescue** of vK, not a new
+session: it continues vK's work and closes with vK's number — the
+handoff you read at startup is still the incoming one, so the
+closing protocol below applies unchanged, with vK as this session's
+number. At close, fold the content of `interim-vK.md` into the new
+handoff and delete the file.
 
 ## State files
 
@@ -154,12 +163,14 @@ losing it would hurt (a milestone, new files, substantial
 decisions), before a long pause, or when the user asks about the
 context, **propose** an interim packaging; the user decides.
 
-1. Write or update `/home/claude/state/interim-vN.md`, where `vN`
-   is the number this session will close with: a short note — not
-   a handoff — with what has been done so far, stating that the
+Let vM be the number this session will close with (see *At the end
+of each session*).
+
+1. Write or update `/home/claude/state/interim-vM.md`: a short note —
+   not a handoff — with what has been done so far, stating that the
    session is still open.
 2. Package the state zip, complete, as
-   `{{PROJECT_SLUG}}-state-YYYYMMDD-vN-interim.zip`, after removing
+   `{{PROJECT_SLUG}}-state-YYYYMMDD-vM-interim.zip`, after removing
    any earlier interim zip from the output directory. Work on the
    project itself is saved to its external source as usual (for a
    repository: committed and pushed).
@@ -171,57 +182,79 @@ Do not archive or touch `handoff.md` during an interim packaging.
 
 * Update `/home/claude/state/agents.md` if the project's structure has changed.
 
-* The version `vN` is an absolute counter: a monotonic session
-  number that increments once per session across the whole project
-  history, not a per-day counter. If you started the session reading
-  handoff `vN`, you close as `v(N+1)`, and each handoff is archived
-  under **its own** number and date — those of the session that
-  wrote it.
+* **Session numbers.** Sessions are numbered with an absolute
+  counter: a monotonic number that increments once per session
+  across the whole project history, not a per-day counter. In this
+  section, **vN** is the number of the *incoming* handoff — the
+  `handoff.md` you read at startup, written by the previous session
+  — and **vM** is *this* session's number: vM = v(N+1), except in a
+  rescue session, where vM is the number of the interrupted session
+  (see the `interim-vN.md` inbox file). Each handoff is archived
+  under the number and date of the session that wrote it.
 
-* Verify handoff continuity before archiving. List
+* **Verify handoff continuity before archiving.** List
   `/home/claude/state/handoffs/` and confirm that the incoming
-  handoff's number is exactly the next after the highest archived
+  handoff's number vN is exactly the next after the highest archived
   one, with no number missing below it. If you find a gap or any
   other break in the sequence, **stop**: do not archive, do not
   package, do not close. Tell the user exactly what you found and
-  wait for their explicit confirmation.
+  wait for their explicit decision.
 
-* Archive the handoff **by copy, never by move**, so that state is
+  If the user confirms that a missing handoff is lost for good,
+  write a **tombstone** in its place, so that the sequence is
+  continuous again and the loss is recorded where it happened: a
+  file `handoffs/handoff-YYYYMMDD-vK.md` (K the missing number; the
+  date, today's) containing only a title `# Handoff vK — lost` and a
+  line saying when the loss was confirmed and what is known about
+  it. A tombstone is never replaced, even if the handoff turns up
+  later — the recovered handoff is archived next to it with a
+  `-recovered` suffix.
+
+* **Archive the handoff by copy, never by move,** so that state is
   never left without a `handoff.md`, not even for an instant:
 
   1. Copy `/home/claude/state/handoff.md` to
      `/home/claude/state/handoffs/handoff-YYYYMMDD-vN.md` (date and
      number of the incoming handoff). Verify the copy exists.
   2. Only then overwrite `/home/claude/state/handoff.md` with the
-     new handoff, reflecting what was done in this session. If an
-     `interim-vN.md` exists, fold its content into the new handoff
-     and delete it.
+     new handoff, reflecting what was done in this session (whose
+     number is vM). If an `interim-vM.md` exists, fold its content
+     into the new handoff and delete it.
 
 * Package the complete state zip (all files in
   `/home/claude/state/`, not just the ones that changed). Name:
-  `{{PROJECT_SLUG}}-state-YYYYMMDD-vN.zip`, using this session's
-  number. Make sure the output directory exists, and always package
+  `{{PROJECT_SLUG}}-state-YYYYMMDD-vM.zip` (this session's number,
+  vM). Make sure the output directory exists and holds no interim
+  zips of this session any more, and always package
   from `/home/claude/` so that the zip contains `state/` as its root
   directory:
 
   ```bash
   mkdir -p /mnt/user-data/outputs
-  cd /home/claude && zip -r /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-vN.zip state/
+  rm -f /mnt/user-data/outputs/*-interim.zip
+  cd /home/claude && zip -r /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-vM.zip state/
   ```
 
-* Verify that the outgoing state zip keeps every archived handoff
-  the incoming one had, plus the one just archived. Handoffs have
-  been lost before by erosion between repackagings, not only by a
-  single failure:
+* **Verify that the outgoing state zip keeps every archived
+  handoff** the incoming one had, plus the one just archived and any
+  tombstones written this session. Handoffs have been lost before by
+  erosion between repackagings, not only by a single failure. The
+  incoming state zip is the one deployed at startup (the newest
+  matching upload):
 
   ```bash
-  IN=$(find /mnt/user-data/uploads /root/.claude/uploads -name '*{{PROJECT_SLUG}}-state-*.zip' 2>/dev/null | head -1)
+  IN=$(find /mnt/user-data/uploads /root/.claude/uploads \
+         \( -name '{{PROJECT_SLUG}}-state-*.zip' -o -name '*-{{PROJECT_SLUG}}-state-*.zip' \) \
+         -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2-)
+  echo "Incoming: $IN"
   unzip -l "$IN" | grep -c 'state/handoffs/handoff-'
-  unzip -l /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-vN.zip | grep -c 'state/handoffs/handoff-'
+  unzip -l /mnt/user-data/outputs/{{PROJECT_SLUG}}-state-YYYYMMDD-vM.zip | grep -c 'state/handoffs/handoff-'
   ```
 
-  The second count must be the first plus one. If it is not, stop
-  and tell the user.
+  The second count must be the first plus one (plus the tombstones
+  written this session). If it is not, stop and tell the user. If
+  there is no incoming state zip (the first close of a project just
+  created or migrated), skip this check.
 
 * Deliver the state zip, and deliver `/home/claude/state/closing/readme.md`
   **loose**, as a file of its own outside the zip, so that

@@ -19,7 +19,10 @@ overwritten with the new handoff of the session that is closing.
 Before archiving, the session verifies continuity: the incoming
 handoff's number must be exactly the next after the highest one
 archived here, with no number missing below it. A gap means a
-handoff has been lost; the session stops and asks the user. The full
+handoff has been lost; the session stops and asks the user. If the
+user confirms the loss, a *tombstone* takes the missing number: a
+file with that number titled `# Handoff vK — lost`, recording when
+the loss was confirmed. Tombstones are never replaced. The full
 procedure is in `setup.md`, under *At the end of each session*.
 
 No handoff is ever deleted — they constitute the project's memory.

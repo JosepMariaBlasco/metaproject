@@ -113,7 +113,7 @@ For `setup.md`, use the template that matches the project hosting
 
 For `closing/readme.md`, use `templates/readme.md`. For an
 external project, remove from it everything about the project zip
-(the sentence about it, and the `P=` lines of the guard): the project
+(the sentence about it, and every line of the guard that handles `$P`): the project
 is obtained as *Project setup* says, and a stray project zip uploaded
 out of habit must not be unpacked over it.
 
@@ -174,9 +174,15 @@ setup". Some orchestrators reinject the project instructions on
 every turn, and an `unzip` reinjected mid-session overwrites the
 session's work with the incoming zip (see *Session startup* in
 `setup.md`). The instructions may stay empty, or hold only things
-that do no harm if repeated on every turn, such as:
+that do no harm if repeated on every turn. Recommend these two, so
+that a fresh session finds the startup file without the user having
+to point at it (the first acts only before state exists, so a
+reinjection does nothing):
 
 ```
+If `/home/claude/state/setup.md` does not exist yet, look for an
+uploaded `readme.md` and follow it.
+
 Interaction language: {{WORK_LANGUAGE}}. Always use this language
 unless the user explicitly switches to another.
 ```

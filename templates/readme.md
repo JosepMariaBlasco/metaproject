@@ -24,27 +24,36 @@ always present and the closing routine never moves or renames it.)
 if [ ! -f /home/claude/state/setup.md ]; then
   # Uploads arrive in /mnt/user-data/uploads/ or, in some environments,
   # in /root/.claude/uploads/<session>/<hash>-name: look in both.
-  S=$(find /mnt/user-data/uploads /root/.claude/uploads -name '*{{PROJECT_SLUG}}-state-*.zip'   2>/dev/null)
-  P=$(find /mnt/user-data/uploads /root/.claude/uploads -name '*{{PROJECT_SLUG}}-project-*.zip' 2>/dev/null)
-  echo "State zip(s):";   echo "$S"
-  echo "Project zip(s):"; echo "$P"
-  if [ "$(printf '%s\n' "$S" | grep -c .)" -eq 1 ]; then
-    unzip -qo "$S" -d /home/claude/
-    if [ "$(printf '%s\n' "$P" | grep -c .)" -eq 1 ]; then
-      unzip -qo "$P" -d /home/claude/
+  # Newest first, so that a zip left over from an earlier session never wins.
+  find_zips() {
+    find /mnt/user-data/uploads /root/.claude/uploads \
+         \( -name "{{PROJECT_SLUG}}-$1-*.zip" -o -name "*-{{PROJECT_SLUG}}-$1-*.zip" \) \
+         -printf '%T@ %p\n' 2>/dev/null | sort -rn | cut -d' ' -f2-
+  }
+  S=$(find_zips state)
+  P=$(find_zips project)
+  echo "State zip(s), newest first:";   echo "$S"
+  echo "Project zip(s), newest first:"; echo "$P"
+  if [ -n "$S" ]; then
+    unzip -qo "$(echo "$S" | head -1)" -d /home/claude/
+    if [ -n "$P" ]; then
+      unzip -qo "$(echo "$P" | head -1)" -d /home/claude/
     fi
   else
-    echo "STOP: expected exactly one state zip. Ask the user."
+    echo "STOP: no state zip found. Ask the user."
   fi
 fi
 ```
 
-If the guard reports no state zip, or more than one, stop and ask
-{{USER_NAME}} which one to use. If the project travels with state and
-the guard did not find exactly one project zip, ask as well.
+If the guard found no state zip, stop and ask {{USER_NAME}}. If it
+listed more than one zip of a kind, it used the newest: tell
+{{USER_NAME}} which one and confirm it before going on. If it was the
+wrong one, nothing has been edited yet: move `/home/claude/state/`
+aside and decompress the right zip by hand. The same goes for the
+project zip in a standalone project: if it is missing, ask for it.
 
-Then — always, whether you decompressed or not — read, in this
-order:
+Then — always, whether you decompressed now or state was already
+deployed — read, in this order:
 
 1. `/home/claude/state/setup.md` — how to work and how to close,
    including the check for **inbox files** (files whose mere
