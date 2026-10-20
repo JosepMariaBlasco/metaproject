@@ -76,3 +76,13 @@ of its own: it has a state zip alongside the framework zip, and
 the session starts by reading `setup.md` and `handoff.md` from
 state. This is the same protocol as any derived project — the
 framework eats its own dogfood.
+
+## Further reading
+
+The design of Metaproject, and the reasons behind it, are described
+in the article *Metaproject — On keeping state between sessions*,
+presented at the 37th International Rexx Language Symposium
+(Barcelona, May 2026). The Markdown source is in
+[`doc/article.md`](doc/article.md); it is also available as
+[HTML](https://rexx.epbcn.com/metaproject/) and as a
+[PDF](https://www.epbcn.com/pdf/josep-maria-blasco/2026-05-04-Metaproject.pdf).
