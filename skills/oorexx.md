@@ -84,12 +84,19 @@ Methods do not see the caller's variables. Instance variables must
 be explicitly exposed:
 
 ```rexx
-::Method name
-  Expose name
-  Return name
+::Method increment
+  Expose count
+  count = count + 1
 ```
 
-Without `Expose`, `name` evaluates to `"NAME"`.
+Without `Expose count`, the body starts a fresh local `count` (which
+evaluates to `"COUNT"`, see pitfall 4) and the assignment never
+touches the instance variable.
+
+Don't write a plain getter or setter this way: `::Method name; Expose
+name; Return name` is exactly what `::Attribute name Get` generates
+for you. Reach for `Expose` when the method does more than relay an
+attribute — like the increment above.
 
 ### 6. Assignment operators are pure syntactic expansion
 
@@ -125,10 +132,27 @@ It drops all existing tails and installs a new default. After
 It is variable name resolution by the interpreter. The dot is a
 tail separator, not the `~` operator.
 
-### 10. Signal inside a Loop causes error 47.2
+### 10. A label inside a block causes error 47.2
 
-`Signal` terminates all active control structures. Extract the
-logic into a separate routine if you need to signal from a loop.
+A label may not appear inside a `DO`/`LOOP` block (including the
+`do...end` that hangs off a `Select` `When` or an `If`). The
+interpreter rejects it: *"Error 47.2: Labels are not allowed within
+a DO/LOOP block."* The culprit is the **label**, not `Signal`.
+
+`Signal` itself jumps *out* of a loop perfectly well — it terminates
+the active control structures and transfers control to the target
+label, which lives at prolog level (outside any block):
+
+```rexx
+do i = 1 to 3
+  if i = 2 then signal done   -- fine: jumps out of the loop
+end
+done:
+```
+
+What fails is putting the `label:` *inside* the block. If you need a
+jump target near loop logic, hoist it out of the block — or extract
+the logic into a separate routine.
 
 ---
 
@@ -176,13 +200,34 @@ arr~makeString("0A"x)
 arr~makeString('L', "0A"x)
 ```
 
-### Write text files with platform-independent line endings
+### Line endings: native vs. forced LF
 
-Use `charOut` instead of `lineOut` to avoid CRLF on Windows:
+For ordinary text output, use `Say` or `LineOut`. They emit the
+platform's **native** line terminator — `LF` on Unix/Linux, `CRLF`
+on Windows — which is what the rest of that platform's tools expect.
+That is the portable, do-the-right-thing default.
 
 ```rexx
-s~charOut(arr~makeString('L', "0A"x))
+do line over arr
+  s~lineOut(line)        -- native terminator on each platform
+end
 ```
+
+Only reach for `charOut` with an explicit `"0A"x` when you
+deliberately want `LF` everywhere regardless of platform — e.g.
+emitting a file destined for a Unix system, or a format that
+mandates `LF`:
+
+```rexx
+s~charOut(arr~makeString('L', "0A"x))   -- forces LF on every platform
+```
+
+Note this is the *opposite* of platform independence: it pins
+Unix-style endings even on Windows. Don't use it as a generic way to
+"avoid CRLF" — use `LineOut` for native endings, and `charOut`/`"0A"x`
+only when a fixed `LF` is the actual requirement. (Also mind that
+`makeString('L', sep)` places the separator *between* elements, so
+there is no trailing terminator after the last line.)
 
 ---
 

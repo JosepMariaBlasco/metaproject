@@ -82,7 +82,7 @@ Precedence: structural options follow *author-wins* (YAML > URL/CLI
 
 Depending on the task, you will also need skills from the main router:
 
-- For the **Serve/Print** pipeline (CGI): see `apache-cgi-rexx.md`
+- For the **Serve/Print** pipeline (CGI): see `apache-cgi-oorexx.md`
 - For the **Render** pipeline (md2pdf): see `pagedjs-cli.md`
 - To install or run ooRexx: see `oorexx-run.md`
 

@@ -52,7 +52,7 @@ available but inactive. For example:
 > execution), `pagedjs-cli` (PDF generation with Paged.js) and
 > `ebnf2svg` (syntax diagrams).
 >
-> Available but inactive skills: `apache-cgi-rexx` (CGI
+> Available but inactive skills: `apache-cgi-oorexx` (CGI
 > deployment with Apache), `rexxpub` (publishing framework).
 >
 > Would you like to activate or deactivate any?

@@ -18,6 +18,8 @@ state/
 ├── agents.md
 ├── conventions.md
 ├── todo.md
+├── pending-tasks.md        (inbox file: present only when work is pending)
+├── framework-feedback.md   (inbox file: present only when feedback is pending)
 ├── handoffs/
 │   ├── readme.md
 │   └── handoff-*.md
@@ -32,7 +34,11 @@ state/
 ```
 
 Reports missing files and unexpected files (those not part of
-the standard).
+the standard). Note the **inbox files** (`pending-tasks.md`,
+`framework-feedback.md`): these exist only when something is
+pending, so their *absence* is normal and never a deviation.
+Their *presence* is expected and must not be reported as an
+unexpected file.
 
 ### Metaproject coherence (prerequisite)
 
@@ -62,8 +68,22 @@ audit proceeds.
   protocol to bring it current.
 - Does it have the introductory paragraph (two-zip description)?
 - Does it have the canonical paths table (state + project)?
-- Does it have the state files section?
-- Does it have the what-to-read-on-startup section?
+- Does it have the **Inbox files** section, covering the
+  conditional startup reads? At v4 this section generalises the
+  v3 *Pending tasks* check: it should describe a single imperative
+  check over the family of inbox files, with a per-file protocol
+  for at least `pending-tasks.md` (inward-facing: propose and
+  execute here) and `framework-feedback.md` (outward-facing:
+  report but do not empty). A setup still carrying only the v3
+  *Pending tasks* section is on an older version — report it and
+  point to `upgrade.md`.
+- Does it have the state files section, and does it list the
+  inbox files (`pending-tasks.md`, `framework-feedback.md`)?
+- Does it have the what-to-read-on-startup section, and does it
+  name the **router** as a startup read (not as an on-demand
+  one)? At v4 the router is a startup read; a setup that still
+  lists `router.md` among the on-demand reads is on an older
+  version — report it and point to `upgrade.md`.
 - Does it have the project setup section?
 - Does it have the session closing protocol?
 - Are the paths mentioned absolute and correct?
