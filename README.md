@@ -1,99 +1,78 @@
 # Metaproject
 
-A framework for cross-session continuity with Claude.
+**Keep a long-running project going with Claude, session after
+session, without starting from zero each time.**
 
-Claude starts every session from zero — no memory, no context.
-For one-off conversations this is fine, but for ongoing projects
-it means losing everything between sessions: what was done, what
-was decided, how the project is organised, what's left to do.
+Claude does not remember anything between sessions. For a quick
+question that is fine. For a project that lasts weeks — a book, a
+research line, a piece of software, a course — it means explaining
+everything again every time: what was done, what was decided, what
+comes next.
 
-Metaproject solves that. It defines a portable state structure
-that travels with your project as a zip file, uploaded at the
-start of each session and updated at the end. Claude reads it,
-picks up where the last session left off, and keeps working.
+Metaproject fixes that with a simple habit. Your project's memory
+lives in a small zip file, the **state**. You give it to Claude at the
+start of each session; Claude reads it, picks up where the last
+session left off, and at the end hands you back an updated zip. That
+is all you need to do.
 
-Metaproject includes protocols for creating this structure
-from scratch, migrating existing projects, auditing conformity,
-upgrading between versions of the standard, and keeping skills in
-sync with their upstreams.
+```
+  start of session                         end of session
+  ────────────────                         ──────────────
+  you upload:                              Claude hands you back:
+    state zip  ─────►  Claude works  ─────►  updated state zip
+    readme.md          with you              readme.md
+```
 
-## Operations
+Nothing to install. It works in the Claude app, with any kind of
+project, in any language.
 
-| You want to... | Follow... |
+## Get started
+
+1. Download [`metaproject-latest.zip`](https://rexx.epbcn.com/metaproject/metaproject-latest.zip)
+   (or clone this repository).
+2. In the Claude app, open a new project and a new conversation.
+   Upload the zip and say: *"Unzip this and follow `create.md`."*
+3. Answer a few questions. Claude gives you your first state zip and
+   a `readme.md`.
+4. From then on, start every session by uploading both.
+
+The [quickstart](doc/quickstart.md) walks you through it, step by
+step.
+
+## Learn more
+
+| | |
 |---|---|
-| Create state for a new project | `create.md` |
-| Migrate an existing project to the standard | `migrate.md` |
-| Audit a project's conformity | `audit.md` |
-| Synchronise a project's skills with their upstreams | `update.md` |
-| Upgrade a project to a newer version of the standard | `upgrade.md` |
+| [Quickstart](doc/quickstart.md) | Your first project, in five minutes. |
+| [Concepts](doc/concepts.md) | State, handoffs, the router, skills — one paragraph each. |
+| [How a session works](doc/sessions.md) | Start, work, close — and what to do when a session runs long. |
+| [Operations](doc/operations.md) | Create, migrate, audit, update, upgrade: which one you need. |
+| [Troubleshooting](doc/troubleshooting.md) | Real problems that have happened, and their fixes. |
+| [Skill collections](doc/skill-collections.md) | Reusable know-how for your projects, and how to publish your own. |
+| [Changelog](CHANGELOG.md) | What changed in each version. |
 
-Each document is self-contained — read it and follow it step
-by step.
+## What is in this repository
 
-## How to invoke an operation
+The documents at the root (`create.md`, `migrate.md`, `audit.md`,
+`update.md`, `upgrade.md` and the `upgradeN-M.md` steps) are
+**instructions for Claude**, not manuals for you: you ask Claude to
+follow one, and it drives the session. `templates/` holds the files
+a new state is made from, `skills/core/` the framework's own skills,
+and `doc/` the documentation you are reading.
 
-Metaproject operations run inside a Claude session. The mechanics
-are always the same: give Claude the framework at the start of the
-session (upload its zip, or let Claude clone this repository) and
-tell Claude to follow the relevant document
-(`create.md`, `migrate.md`, `audit.md`, `update.md`, or
-`upgrade.md`). Each document is written as an instruction set for
-Claude — not a manual for the user — and drives the session end
-to end.
+Metaproject maintains itself with Metaproject: the framework is this
+repository, and its own state travels separately, in a private zip.
 
-There is no separate "start-of-session" protocol for Metaproject
-itself: the choice of document is the protocol.
+## History
 
-## What else is here
-
-- `templates/` — templates used by `create.md` and `migrate.md`
-  to generate the state files.
-- `skills/` — the framework's own skills, copied to each project:
-  - `skills/core/` — skills about the metaproject's own processes
-    (how to maintain the todo, how to write handoffs, etc.). These
-    are distributed with Metaproject and synchronised by `update`.
-  - `skills/personal/` — a placeholder for the project's own
-    skills, which never travel from Metaproject and are never
-    synchronised back.
-
-  Metaproject does not ship domain skills (a language reference, a
-  deployment recipe, a publishing pipeline). Those are published
-  and maintained in their own **skill collections**, and a project
-  imports the ones it uses: they live at the root of the project's
-  `skills/`, and the router records the collection each one comes
-  from, so that `update` can keep them in sync. An example of a
-  collection that works this way is
-  [Rexx Skills](https://rexx.epbcn.com/skills/), skills for working
-  with ooRexx and Regina.
-
-  Skills meant to be imported usually carry a YAML frontmatter with
-  `name` and `description` fields, following the Claude Code
-  convention; the `description` helps decide whether a skill is
-  worth importing. Core skills omit the frontmatter — they are
-  always active and do not need to be advertised.
-- `handoffs/` — template for the handoffs directory that gets
-  copied to each new project.
-- `doc/` — the article describing Metaproject's design (see
-  *Further reading*).
-
-## Working on Metaproject itself
-
-If you are working on the framework itself (not on a project
-derived from it), Metaproject is set up as a Metaproject project
-of its own, in external mode: the project is this repository, and
-its state travels separately, in a private state zip that is not
-part of the repository. The session starts the same way as in any
-derived project — the framework eats its own dogfood.
-
-## Further reading
-
-The design of Metaproject, and the reasons behind it, are described
-in the article *Metaproject — On keeping state between sessions*,
-presented at the 37th International Rexx Language Symposium
-(Barcelona, May 2026). The Markdown source is in
-[`doc/article.md`](doc/article.md); it is also available as
-[HTML](https://rexx.epbcn.com/metaproject/) and as a
+Metaproject was presented at the 37th International Rexx Language
+Symposium (Barcelona, May 2026), in the article *Metaproject — On
+keeping state between sessions*:
+[source](doc/article.md), [HTML](https://rexx.epbcn.com/metaproject/article.md),
 [PDF](https://www.epbcn.com/pdf/josep-maria-blasco/2026-05-04-Metaproject.pdf).
+The article describes version 3 of the standard and is kept as it
+was presented, for its historical value; the documentation above
+describes the current version.
 
 ## License
 
