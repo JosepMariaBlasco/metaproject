@@ -61,6 +61,12 @@ outgoing zip keeps every archived handoff the incoming one had.
 Handoffs have been lost both ways: by a single failure, and by
 erosion across repackagings.
 
+The closing protocol also says, from v5.2 on, what has always been
+the practice: a session closes only when the user asks, and a pause
+is not a close. And the project's `handoffs/readme.md`, which
+describes the same mechanics and had never been refreshed after
+`create`, is brought in line with Metaproject's.
+
 ### 5. Intermediate packaging, and the interim inbox file
 
 Long sessions can die before closing (context full, environment
@@ -132,18 +138,30 @@ adjusting names and wording to the project:
   `conventions.md` leaves the on-demand list.
 - **Intermediate packaging**: the whole section, before *At the end
   of each session*.
-- **At the end of each session**: replace the handoff and packaging
-  bullets with the template's — the absolute counter, the
-  continuity check, archiving by copy, the `mkdir -p`, the check of
-  handoffs in the outgoing zip, and delivering `closing/readme.md`
-  loose. Remove any text saying that archiving means moving. Keep
-  any project-specific closing steps the setup already had.
+- **At the end of each session**: add the template's opening
+  paragraph (a session closes only when the user asks; a pause is
+  not a close), and replace the handoff and packaging bullets with
+  the template's — the absolute counter, the continuity check,
+  archiving by copy, the `mkdir -p`, the check of handoffs in the
+  outgoing zip, and delivering `closing/readme.md` loose. Remove any
+  text saying that archiving means moving. Keep any
+  project-specific closing steps the setup already had.
 
 If the setup carries a hand-adopted *Session startup* section or
 closing rules, replace them with the template's wording rather than
 keeping two versions.
 
-### 3. Update `conventions.md`
+### 3. Replace `handoffs/readme.md`
+
+Replace `/home/claude/state/handoffs/readme.md` with Metaproject's
+`handoffs/readme.md` (translated, if the project's state is in
+another language, keeping the substance). The project's copy was
+made when the project was created, and nothing has refreshed it
+since: depending on its age it may still say that archiving means
+moving, or describe a per-day counter. Left as it is, it contradicts
+the closing protocol just written into `setup.md`.
+
+### 4. Update `conventions.md`
 
 Add the three standard conventions from `templates/conventions.md`
 (section *Standard conventions*) that the project does not already
@@ -151,7 +169,7 @@ have. Drop the git one if the project has no repository. If the
 project has a repository, the git attribution rule also goes into
 its `CLAUDE.md`.
 
-### 4. Reclassify the skills at the root of `skills/`
+### 5. Reclassify the skills at the root of `skills/`
 
 Every skill at the root of `skills/`, or in a subdirectory other
 than `core/` and `personal/`, becomes either an **imported** skill
@@ -185,7 +203,7 @@ by `update`, which the orchestrator proposes after the last hop.
 For a skill renamed upstream (such as `apache-cgi-rexx`), `update`
 will report the old name as *Local* and propose the new one.
 
-### 5. If the state has `escalate-to-meta.md`
+### 6. If the state has `escalate-to-meta.md`
 
 Some projects kept an `escalate-to-meta.md` for remarks addressed
 to the framework. v4's `framework-feedback.md` is the standard
@@ -196,7 +214,7 @@ Entries that record rules now standardised by v5 can be marked as
 such rather than carried over as open. Do nothing without the
 user's decision.
 
-### 6. Update the version marker
+### 7. Update the version marker
 
 Change the version marker near the top of `setup.md` from
 `*Metaproject standard: v4.*` to:
@@ -205,7 +223,7 @@ Change the version marker near the top of `setup.md` from
 *Metaproject standard: v5.*
 ```
 
-### 7. Tell the user what changes for them
+### 8. Tell the user what changes for them
 
 1. **Remove every startup instruction from the Claude project
    instructions** (unzipping, reading setup). They may stay empty,
@@ -221,7 +239,7 @@ Change the version marker near the top of `setup.md` from
    and `closing/readme.md`, loose.** Claude delivers an updated copy
    of it at the end of every session.
 
-### 8. Verify
+### 9. Verify
 
 - `closing/readme.md` exists, with the right slug, its `find`
   finds this session's zips, and its startup reads match
@@ -229,14 +247,16 @@ Change the version marker near the top of `setup.md` from
 - `setup.md` has the *Session startup* section, the
   `interim-vN.md` inbox file, the new *State files* entries, four
   startup reads, the *Intermediate packaging* section, and the v5
-  closing protocol (no "archiving means moving" left anywhere).
+  closing protocol, opening with the close-only-when-asked rule (no
+  "archiving means moving" left anywhere).
+- `handoffs/readme.md` matches Metaproject's.
 - `conventions.md` has the standard conventions that apply.
 - Every skill outside `core/` and `personal/` has a router row in
   *Imported* with a **Source**, or the user has decided what to do
   with it.
 - The version marker says v5.
 
-### 9. Gaps in `handoffs/`
+### 10. Gaps in `handoffs/`
 
 The v5 closing protocol stops at any gap in the handoff sequence.
 States that lost handoffs before v5 will hit it at the close of this
@@ -245,7 +265,7 @@ and, for each one the user confirms as lost for good, write the
 tombstone described in the closing protocol. Then the close can go
 ahead.
 
-### 10. Done
+### 11. Done
 
 The state is now at v5. Control returns to the orchestrator. This
 session already closes with the v5 protocol; it is the first time

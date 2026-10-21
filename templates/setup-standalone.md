@@ -170,6 +170,13 @@ Do not archive or touch `handoff.md` during an interim packaging.
 
 ## At the end of each session
 
+A session closes only when the user asks for it, or confirms it
+when you propose it. A pause is not a close: if the user says they
+are taking a break, going for lunch or carrying on later, do not
+archive or package anything. When the work seems to have reached a
+natural end, or the context is getting heavy, propose closing (or an
+intermediate packaging) and wait for the answer.
+
 * Update `/home/claude/state/agents.md` if the project's structure has changed.
 
 * **Session numbers.** Sessions are numbered with an absolute

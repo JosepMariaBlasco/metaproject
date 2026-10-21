@@ -17,12 +17,18 @@ language reference, a deployment recipe, a publishing pipeline) are
 not part of the framework: they are published and maintained in
 their own collections, and a project imports the ones it uses.
 
+Besides the core skills, Metaproject distributes one file outside
+`skills/` that projects carry as a copy: **`handoffs/readme.md`**,
+the description of the handoff mechanics. It holds nothing specific
+to the project, so it is synchronised with the core layer (see
+step 2).
+
 ## Procedure
 
 ### 1. Obtain the upstreams
 
-- **Core:** Metaproject's `skills/core/`, from the framework zip or
-  a clone of its repository.
+- **Core:** Metaproject's `skills/core/` and `handoffs/readme.md`,
+  from the framework zip or a clone of its repository.
 - **Imported:** for each distinct collection named in the router's
   **Source** column, obtain an exact copy of its skills — the
   collection's zip or a clone of its repository. If the environment
@@ -51,6 +57,14 @@ For each layer, compare the project's files with their upstream.
 For imported skills, compare only against the collection the skill
 declares; a skill that is new in a collection the project does not
 use is not news for this project.
+
+**`handoffs/readme.md`.** Compare it with Metaproject's. If it
+differs, show the user the difference and propose replacing it with
+Metaproject's copy (translated, if the project keeps its state in
+another language, but with the same substance). A stale copy is not
+harmless: earlier versions of this file described rules the standard
+has since changed (a per-day counter, archiving by moving), and they
+contradict the project's own `setup.md`.
 
 **Renamed or withdrawn upstream.** A *Local* imported skill whose
 upstream no longer has it has usually been renamed or withdrawn.

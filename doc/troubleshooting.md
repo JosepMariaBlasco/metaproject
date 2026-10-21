@@ -65,13 +65,15 @@ outputs as files rather than pasting them (see
 ## Claude closed (or packaged) when I only wanted a break
 
 **Why.** It should not happen: closing is your decision, and a pause
-is not a close.
+is not a close. The closing protocol in `setup.md` says so in its
+first lines.
 
 **What to do.** Say so, and tell Claude the session is still open:
 the close is simply redone at the real end, with the same session
 number, replacing the zips and the handoff it produced too early.
-If it keeps happening, add a line to the project's conventions
-saying that closing happens only when you ask.
+If your project's `setup.md` lacks that rule (states brought to v5
+before release 5.2), [`audit`](operations.md) reports it; ask Claude
+to copy the paragraph from the setup template into it.
 
 ## Something else
 

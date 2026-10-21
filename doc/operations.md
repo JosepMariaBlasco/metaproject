@@ -10,7 +10,7 @@ and it drives the session from there.
 | Start a new project | [`create.md`](../create.md) | Claude asks a few questions and builds a fresh state. |
 | Bring an existing project into Metaproject | [`migrate.md`](../migrate.md) | Claude looks at what the project already has (notes, instructions, files), proposes how it maps onto the standard, and does it once you agree. May take several sessions. |
 | Check that a project follows the standard | [`audit.md`](../audit.md) | Claude lists what conforms and what deviates. It changes nothing. |
-| Bring a project's skills up to date | [`update.md`](../update.md) | Claude compares each skill with where it came from — Metaproject for core skills, its collection for imported ones — and asks you about every difference. |
+| Bring a project's skills up to date | [`update.md`](../update.md) | Claude compares each skill with where it came from — Metaproject for core skills, its collection for imported ones — and asks you about every difference. It also refreshes the project's copy of `handoffs/readme.md`. |
 | Move a project to a newer version of the standard | [`upgrade.md`](../upgrade.md) | Claude applies the steps between versions (`upgrade3-4.md`, `upgrade4-5.md`…) one at a time, then offers to run `update`. |
 
 ## Which one, when

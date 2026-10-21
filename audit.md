@@ -45,8 +45,9 @@ unexpected file.
 
 ### Metaproject coherence (prerequisite)
 
-Before auditing the project, verify that the Metaproject zip is
-internally coherent about its own version. Three sources must
+Before auditing the project, verify that Metaproject (its zip or a
+clone of its repository) is internally coherent about its own
+version. Three sources must
 agree:
 
 - `max(M)` among the `upgradeN-M.md` files.
@@ -99,8 +100,10 @@ audit proceeds.
   the v5 elements: continuity check before archiving, archiving
   **by copy** (not by move), `mkdir -p` of the output directory,
   the check that the outgoing zip keeps every archived handoff, and
-  delivering `closing/readme.md` loose? A protocol that still says
-  "archiving means moving" is on an older version.
+  delivering `closing/readme.md` loose? Does it say that a session
+  closes only when the user asks, and that a pause is not a close?
+  A protocol that still says "archiving means moving" is on an older
+  version.
 - Are the paths mentioned absolute and correct?
 
 ### Startup file
@@ -127,6 +130,11 @@ audit proceeds.
   it. (A *tombstone* — a `handoff-…-vK.md` titled `# Handoff vK —
   lost` — is a gap the user has already confirmed; it is not a
   deviation.)
+- Is `handoffs/readme.md` the same as Metaproject's (or a
+  translation with the same substance)? Projects keep it as a copy
+  and nothing else refreshes it, so an old one survives upgrades and
+  may describe rules the standard has dropped (a per-day counter,
+  archiving by moving). Report any difference; `update` replaces it.
 
 ### Router
 
