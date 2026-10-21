@@ -123,7 +123,7 @@ Also identify the **project hosting**:
 
 Establish the **project slug**: a short prefix (lowercase, no
 spaces) that will be used in zip filenames (e.g.
-`yaml-state-v3.zip`). Propose one derived from the project name
+`yaml-state-20260409-v3.zip`). Propose one derived from the project name
 and let the user confirm or change it.
 
 Also check whether there are **project files** (the

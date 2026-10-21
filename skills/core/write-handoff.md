@@ -4,8 +4,9 @@ How the `handoff.md` at the state root is written.
 
 Read this when you are about to write or edit the current
 handoff. The mechanics of archiving (when and how to archive, how
-to name) live in `handoffs/readme.md` — this skill is about what goes
-inside the file.
+to name, how to check continuity) are in `setup.md`, under *At the
+end of each session*, and summarised in `handoffs/readme.md` — this
+skill is about what goes inside the file.
 
 ## Purpose of a handoff
 

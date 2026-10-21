@@ -130,6 +130,10 @@ download it), place them at the root of `skills/`, and add a row
 for each to the *Imported* section of the router, with the
 collection's URL in the **Source** column.
 
+For a standalone project, also create `/home/claude/project/`, with
+whatever project material step 2 assigned to it, or empty: it is
+packaged as the project zip in step 5.
+
 ## Step 5 — Package and deliver
 
 Make sure the output directory exists, then package. Name the zips
