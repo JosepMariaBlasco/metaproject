@@ -5,6 +5,33 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 `M` counts releases within it. A new `N` always comes with an
 `upgrade(N-1)-N.md` step that brings existing states up to date.
 
+## v5.2 — 21/10/2026
+
+A maintenance release of standard **v5**: the rules are the same,
+but several files that restate them had drifted apart.
+
+- **`handoffs/readme.md` is kept in step.** Projects copy it when
+  they are created, and nothing refreshed it afterwards: a state
+  upgraded to v5 could still say there that archiving means moving
+  (or describe a per-day counter), against its own `setup.md`.
+  `upgrade4-5` now replaces it, `update` offers to synchronise it
+  with the core skills, and `audit` compares it.
+- **A session closes only when you ask.** The documentation already
+  promised it; now the closing protocol of the setup templates says
+  so: a pause is not a close (an intermediate packaging before a long
+  pause still is welcome). External projects kept in a repository
+  also commit and push everything at close.
+- Smaller fixes in `create`, `migrate`, `upgrade`, `write-handoff`
+  and `doc/`.
+- **For maintainers:** `CLAUDE.md` lists every rule stated in more
+  than one file, with its canonical source.
+
+**If your state is already at v5**, `upgrade` has nothing to do.
+Run `update` to refresh `handoffs/readme.md`, and ask Claude to copy
+the new opening paragraph of *At the end of each session* (and, in
+an external project with a repository, the commit-and-push bullet)
+from the setup template into your `setup.md`. `audit` reports both.
+
 ## v5.1 — 20/10/2026
 
 First release of standard **v5**, and the first built from this

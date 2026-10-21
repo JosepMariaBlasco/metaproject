@@ -62,15 +62,19 @@ accept Claude's proposals of intermediate packaging, and attach big
 outputs as files rather than pasting them (see
 [How a session works](sessions.md)).
 
-## Claude closed (or packaged) when I only wanted a break
+## Claude closed when I only wanted a break
 
 **Why.** It should not happen: closing is your decision, and a pause
 is not a close. The closing protocol in `setup.md` says so in its
 first lines.
 
-**What to do.** Say so, and tell Claude the session is still open:
-the close is simply redone at the real end, with the same session
-number, replacing the zips and the handoff it produced too early.
+**What to do.** Say so, tell Claude the session is still open, and
+carry on. At the real end, ask Claude to close again, with the same
+session number, and remind it that it already closed once: the
+previous handoff is already archived and must not be archived again,
+so Claude only rewrites `handoff.md` and packages the zips again,
+replacing the early ones.
+
 If your project's `setup.md` lacks that rule (states brought to v5
 before release 5.2), [`audit`](operations.md) reports it; ask Claude
 to copy the paragraph from the setup template into it.

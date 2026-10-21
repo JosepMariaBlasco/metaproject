@@ -29,17 +29,17 @@ it never goes into this repository.
 
 | Rule | Canonical source | Also stated in |
 |---|---|---|
-| Current standard version | the `upgradeN-M.md` files | `templates/setup-*.md` (marker), `audit.md`, `upgrade.md` |
-| Startup: guarded unzip, upload folders, newest zip | `templates/closing/readme.md` | `templates/setup-*.md` (*Session startup*), `upgrade4-5.md`, `audit.md`, `doc/sessions.md`, `doc/troubleshooting.md` |
+| Current standard version | the `upgradeN-M.md` files | `templates/setup-*.md` (marker), `audit.md`, `upgrade.md`, `doc/concepts.md` (example marker) |
+| Startup: guarded unzip, upload folders, newest zip | `templates/closing/readme.md` | `templates/setup-*.md` (*Session startup*), `upgrade4-5.md`, `audit.md`, `README.md`, `doc/quickstart.md`, `doc/sessions.md`, `doc/troubleshooting.md` |
 | The four startup reads | `templates/setup-*.md` (*What to read on startup*) | `templates/closing/readme.md`, `audit.md`, `upgrade4-5.md`, `doc/concepts.md`, `doc/sessions.md` |
 | Nothing about startup in the project instructions; the harmless line | `create.md` (step 5) | `templates/setup-*.md`, `migrate.md` (phase 6), `upgrade4-5.md`, `audit.md`, `doc/quickstart.md`, `doc/troubleshooting.md` |
 | Inbox files (`pending-tasks`, `framework-feedback`, `interim-vN`) | `templates/setup-*.md` (*Inbox files*) | `audit.md`, `upgrade.md`, `upgrade4-5.md`, `doc/concepts.md`, `doc/sessions.md`, `doc/troubleshooting.md` |
-| Closing: only when the user asks; numbering; continuity check; tombstones; archive by copy; packaging; handoffs kept in the zip; readme loose | `templates/setup-*.md` (*At the end of each session*) | `handoffs/readme.md`, `skills/core/write-handoff.md`, `audit.md`, `migrate.md` (phase 5), `upgrade.md` (step 7), `upgrade4-5.md`, `doc/concepts.md`, `doc/sessions.md`, `doc/quickstart.md`, `doc/troubleshooting.md` |
+| Closing: only when the user asks; numbering; continuity check; tombstones; archive by copy; packaging; handoffs kept in the zip; readme loose; commit and push (external) | `templates/setup-*.md` (*At the end of each session*) | `handoffs/readme.md` (handoff part), `skills/core/write-handoff.md` (pointer), `audit.md`, `README.md`, `migrate.md` (phase 5), `upgrade.md` (step 7), `upgrade4-5.md`, `doc/concepts.md`, `doc/sessions.md`, `doc/quickstart.md`, `doc/troubleshooting.md` |
 | Intermediate packaging | `templates/setup-*.md` (*Intermediate packaging*) | `templates/conventions.md`, `upgrade4-5.md`, `audit.md`, `doc/sessions.md`, `doc/quickstart.md`, `doc/troubleshooting.md` |
-| Zip names (`slug-state-YYYYMMDD-vN.zip`) | `templates/setup-*.md` | `templates/closing/readme.md` (patterns), `create.md`, `migrate.md`, `doc/quickstart.md` |
+| Zip names (`slug-state-YYYYMMDD-vN.zip`, `…-interim.zip`) | `templates/setup-*.md` | `templates/closing/readme.md` (patterns), `create.md`, `migrate.md`, `doc/quickstart.md`, `doc/sessions.md`, `doc/troubleshooting.md` |
 | State structure (which files, which are inbox files) | `templates/setup-*.md` (*State files*) | `create.md`, `migrate.md`, `audit.md`, `templates/README.md`, `templates/handoff.md`, `doc/concepts.md` |
 | Skill layers (core, imported with **Source**, personal) | `update.md` | `templates/router.md`, `create.md`, `migrate.md`, `audit.md`, `upgrade4-5.md`, `skills/README.md`, `doc/concepts.md`, `doc/skill-collections.md`, `doc/operations.md` |
-| Files distributed as copies (`skills/core/`, `handoffs/readme.md`) | `update.md` | `create.md`, `audit.md`, `upgrade4-5.md`, `doc/operations.md` |
+| Files distributed as copies (`skills/core/`, `handoffs/readme.md`) | `update.md` | `create.md`, `migrate.md`, `audit.md`, `upgrade.md`, `upgrade4-5.md`, `skills/README.md`, `doc/operations.md` |
 | Standard conventions | `templates/conventions.md` | `audit.md`, `upgrade4-5.md`, `doc/sessions.md` (and this file, for git attribution) |
 
 Not in the table, and not to be edited for coherence: `article.md`

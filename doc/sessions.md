@@ -44,7 +44,8 @@ noting it in `framework-feedback.md`; it never does so on its own.
 ## Close
 
 Closing is always your decision. Saying you are taking a break is not
-a close; asking Claude to close is. When you ask, Claude:
+a close; asking Claude to close is (or saying yes when Claude
+proposes it). When you ask, Claude:
 
 1. **Checks the handoff history** for gaps. If a handoff is missing,
    it stops and asks you. If you confirm it is lost for good, it

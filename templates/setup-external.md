@@ -36,10 +36,11 @@ looks for the uploads both in `/mnt/user-data/uploads/` and in
 `/root/.claude/uploads/` (where some environments place them, with a
 hash prefix in the file name).
 
-The project instructions hold no startup instruction. At most they
-carry a line that is harmless when reinjected, because it only acts
-before state exists: *"If `/home/claude/state/setup.md` does not
-exist yet, look for an uploaded `readme.md` and follow it."*
+The project instructions hold no startup instruction. They may hold
+lines that do no harm when reinjected, such as this one, which only
+acts before state exists: *"If `/home/claude/state/setup.md` does not
+exist yet, look for an uploaded `readme.md` and follow it."* (`create`
+recommends it together with a line fixing the interaction language.)
 Otherwise {{USER_NAME}} tells you to follow the readme.
 
 `setup.md` is the anchor precisely because it is always present and
@@ -183,7 +184,9 @@ Do not archive or touch `handoff.md` during an interim packaging.
 A session closes only when the user asks for it, or confirms it
 when you propose it. A pause is not a close: if the user says they
 are taking a break, going for lunch or carrying on later, do not
-archive or package anything. When the work seems to have reached a
+archive the handoff or package the closing zips. (Proposing an
+intermediate packaging before a long pause is a different thing:
+see *Intermediate packaging*.) When the work seems to have reached a
 natural end, or the context is getting heavy, propose closing (or an
 intermediate packaging) and wait for the answer.
 

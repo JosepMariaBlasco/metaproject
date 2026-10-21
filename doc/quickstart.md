@@ -38,7 +38,7 @@ Claude then builds the state and hands you:
   (standalone only);
 - `readme.md` — the startup file.
 
-Keep all three somewhere safe. Claude will hand you new copies at the
+Keep them somewhere safe. Claude will hand you new copies at the
 end of every session; the old ones can be kept as backups.
 
 ## 3. Set up the project instructions
@@ -75,9 +75,9 @@ and hands them to you together with `readme.md`. Save them; they are
 what you upload next time.
 
 A pause is not a close. If you say you are stepping away for lunch,
-nothing is packaged; you just carry on afterwards. In a very long
-session, Claude may propose an *intermediate packaging* so that a
-crash cannot cost you the whole day — see
+nothing is closed; you just carry on afterwards. Before a long pause,
+or in a very long session, Claude may propose an *intermediate
+packaging* so that a crash cannot cost you the whole day — see
 [How a session works](sessions.md).
 
 ## Next

@@ -1,6 +1,7 @@
 # update
 
-Synchronises a project's skills with their upstreams. Not a blind
+Synchronises a project's skills, and its copy of `handoffs/readme.md`,
+with their upstreams. Not a blind
 copy — it is an intelligent diff that respects local changes.
 
 A project's skills have three origins, and each is synchronised

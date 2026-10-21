@@ -97,7 +97,7 @@ is nothing to do — tell the user and stop.
 
 6. **Propose running `update`.** After the final hop, the state
    is *structurally* at the current standard but its distributed
-   content (skills) may not yet be — only `update` synchronises
+   content (skills, `handoffs/readme.md`) may not yet be — only `update` synchronises
    that. Propose to the user running `update` now, in the same
    session.
 
@@ -115,8 +115,8 @@ is nothing to do — tell the user and stop.
 
 7. **Close the session** with the usual protocol: archive the
    current handoff, write a new one describing the upgrade (and
-   the deferred update if applicable), and repackage the state
-   zip.
+   the deferred update if applicable), and package, all as the
+   closing protocol in `setup.md` says.
 
 ## Principles
 

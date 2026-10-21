@@ -144,8 +144,10 @@ adjusting names and wording to the project:
   the template's — the absolute counter, the continuity check,
   archiving by copy, the `mkdir -p`, the check of handoffs in the
   outgoing zip, and delivering `closing/readme.md` loose. Remove any
-  text saying that archiving means moving. Keep any
-  project-specific closing steps the setup already had.
+  text saying that archiving means moving. In an external project
+  kept in a repository, add the template's bullet asking for every
+  change to be committed and pushed. Keep any project-specific
+  closing steps the setup already had.
 
 If the setup carries a hand-adopted *Session startup* section or
 closing rules, replace them with the template's wording rather than

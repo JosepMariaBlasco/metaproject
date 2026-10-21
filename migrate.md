@@ -183,6 +183,9 @@ Apply the agreed changes. After each change:
   its old name).
 - Verify that the resulting structure is coherent.
 
+Copy `handoffs/readme.md` from Metaproject as it is (it is
+distributed as a copy, and `update` keeps it in step).
+
 Generate `closing/readme.md` from `templates/closing/readme.md` as soon as
 `setup.md` exists (for an external project, remove from it
 everything about the project zip: the sentence about it, and every line of

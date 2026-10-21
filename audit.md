@@ -102,6 +102,8 @@ audit proceeds.
   the check that the outgoing zip keeps every archived handoff, and
   delivering `closing/readme.md` loose? Does it say that a session
   closes only when the user asks, and that a pause is not a close?
+  In an external project kept in a repository, does it ask for
+  every change to be committed and pushed at close?
   A protocol that still says "archiving means moving" is on an older
   version.
 - Are the paths mentioned absolute and correct?
@@ -132,9 +134,9 @@ audit proceeds.
   deviation.)
 - Is `handoffs/readme.md` the same as Metaproject's (or a
   translation with the same substance)? Projects keep it as a copy
-  and nothing else refreshes it, so an old one survives upgrades and
-  may describe rules the standard has dropped (a per-day counter,
-  archiving by moving). Report any difference; `update` replaces it.
+  made when they were created, and an old one may describe rules the
+  standard has dropped (a per-day counter, archiving by moving).
+  Report any difference; `update` proposes replacing it.
 
 ### Router
 
