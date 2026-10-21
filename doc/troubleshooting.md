@@ -72,8 +72,9 @@ first lines.
 carry on. At the real end, ask Claude to close again, with the same
 session number, and remind it that it already closed once: the
 previous handoff is already archived and must not be archived again,
-so Claude only rewrites `handoff.md` and packages the zips again,
-replacing the early ones.
+so Claude only rewrites `handoff.md`, deletes the early zips from
+its output folder and packages the zips again. Keep only the new
+ones.
 
 If your project's `setup.md` lacks that rule (states brought to v5
 before release 5.2), [`audit`](operations.md) reports it; ask Claude

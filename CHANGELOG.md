@@ -7,8 +7,10 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 
 ## v5.2 — 21/10/2026
 
-A maintenance release of standard **v5**: the rules are the same,
-but several files that restate them had drifted apart.
+A maintenance release of standard **v5**, with no new upgrade step:
+several files that restate the rules had drifted apart, and two
+rules the documentation already assumed are now written into the
+setup templates.
 
 - **`handoffs/readme.md` is kept in step.** Projects copy it when
   they are created, and nothing refreshed it afterwards: a state
