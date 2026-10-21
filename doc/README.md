@@ -12,7 +12,7 @@ quickstart; the rest can be read in any order.
 | [Troubleshooting](troubleshooting.md) | Real problems that have happened, and their fixes. |
 | [Skill collections](skill-collections.md) | Reusable know-how for your projects, and how to publish your own. |
 
-Also here: [the article](article.md) presented at the 37th
+See also [the article](../article.md) presented at the 37th
 International Rexx Language Symposium (Barcelona, May 2026). It
 describes version 3 of the standard and is kept as it was presented,
 for its historical value.

@@ -69,7 +69,7 @@ repository, and its own state travels separately, in a private zip.
 Metaproject was presented at the 37th International Rexx Language
 Symposium (Barcelona, May 2026), in the article *Metaproject — On
 keeping state between sessions*:
-[source](doc/article.md),
+[source](article.md),
 [PDF](https://www.epbcn.com/pdf/josep-maria-blasco/2026-05-04-Metaproject.pdf).
 The article describes version 3 of the standard and is kept as it
 was presented, for its historical value; the documentation above
