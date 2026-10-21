@@ -91,7 +91,7 @@ each against its own upstream.
 ## Procedure
 
 Throughout, use the templates of the Metaproject version you are
-upgrading to as the canonical wording: `templates/readme.md`,
+upgrading to as the canonical wording: `templates/closing/readme.md`,
 `templates/setup-standalone.md` or `templates/setup-external.md`
 (whichever matches the project's hosting), `templates/conventions.md`
 and `templates/router.md`. Write in the project's working language
@@ -100,7 +100,7 @@ if it is not English, keeping the substance.
 ### 1. Create `closing/readme.md`
 
 Create `/home/claude/state/closing/readme.md` from
-`templates/readme.md`, substituting `{{PROJECT_NAME}}`,
+`templates/closing/readme.md`, substituting `{{PROJECT_NAME}}`,
 `{{PROJECT_SLUG}}` (the prefix of the project's zips — look it up in
 `setup.md`) and `{{USER_NAME}}`. For an external project, remove
 everything about the project zip (the sentence about it, and every line of

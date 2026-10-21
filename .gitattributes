@@ -1,0 +1,5 @@
+# Files left out of `git archive`, and so out of the published zips.
+# They are for whoever works on the repository, not for the
+# framework's users.
+CLAUDE.md export-ignore
+.gitattributes export-ignore

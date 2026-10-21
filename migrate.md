@@ -183,7 +183,7 @@ Apply the agreed changes. After each change:
   its old name).
 - Verify that the resulting structure is coherent.
 
-Generate `closing/readme.md` from `templates/readme.md` as soon as
+Generate `closing/readme.md` from `templates/closing/readme.md` as soon as
 `setup.md` exists (for an external project, remove from it
 everything about the project zip: the sentence about it, and every line of
 the guard that handles `$P`).

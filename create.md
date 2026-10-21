@@ -111,7 +111,7 @@ For `setup.md`, use the template that matches the project hosting
 - **Standalone** → `templates/setup-standalone.md`
 - **External** → `templates/setup-external.md`
 
-For `closing/readme.md`, use `templates/readme.md`. For an
+For `closing/readme.md`, use `templates/closing/readme.md`. For an
 external project, remove from it everything about the project zip
 (the sentence about it, and every line of the guard that handles `$P`): the project
 is obtained as *Project setup* says, and a stray project zip uploaded
