@@ -118,6 +118,12 @@ Create `/home/claude/state/closing/readme.md` from
 everything about the project zip (the sentence about it, and every line of
 the guard that handles `$P`).
 
+Project-specific startup lines the old file had (cloning the
+project's repository, a note on attaching it with push access) may
+stay, after the state guard and outside it; or move to *Project
+setup* in `setup.md`, where the template puts how the project is
+obtained.
+
 If the file already exists (adopted by hand), bring it in line with
 the template: the guard must search the three upload locations
 (with `find -H`, since an upload folder may itself be a symbolic
@@ -182,6 +188,9 @@ the closing protocol just written into `setup.md`.
 Add the three standard conventions from `templates/conventions.md`
 (section *Standard conventions*) that the project does not already
 have. Drop the git one if the project has no repository. If the
+conventions carry a procedure of their own for intermediate
+packaging, move it into `setup.md` (the template's *Intermediate
+packaging* replaces it) and leave the convention as a pointer. If the
 project has a repository, the git attribution rule also goes into
 its `CLAUDE.md`.
 
@@ -193,7 +202,9 @@ or a **personal** one.
 
 1. In `router.md`, rename the *Project-specific* section to
    *Imported* and add a **Source** column, as in
-   `templates/router.md`.
+   `templates/router.md`. Rows in that section that are not skills
+   (a register, notes, sections of the setup) move to *State
+   documents*.
 2. For each such skill, find its upstream collection and record it
    in **Source**. For the skills Metaproject itself used to ship:
 

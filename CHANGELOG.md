@@ -7,17 +7,22 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 
 ## Unreleased
 
-From the second upgrade of a real project to v5 (a state set up by
-hand, from a hybrid v3). Only `upgrade.md` and `upgrade4-5` change:
+From the second and third upgrades of real projects to v5 (from
+hybrid v3 states, one set up by hand). Only `upgrade.md` and `upgrade4-5` change:
 nothing to do for states already at v5.
 
 - `upgrade.md`: a state may name its version in a sentence rather
   than in the marker line; take that version, and write the marker
   when done.
-- `upgrade4-5`: step 3 creates `handoffs/readme.md` when the state
-  has none; step 5 fixes the paths to and inside a skill moved to
-  `personal/`; interim zips named in another language are renamed,
-  and the old ones removed by hand at the first close.
+- `upgrade.md`: a state whose files are in several languages keeps
+  each file in its own.
+- `upgrade4-5`: step 1 says where project-specific startup lines go;
+  step 3 creates `handoffs/readme.md` when the state has none; step 4
+  moves an intermediate-packaging procedure out of the conventions;
+  step 5 moves non-skill router rows to *State documents*, and fixes
+  the paths to and inside a skill moved to `personal/`; interim zips
+  named in another language are renamed, and the old ones removed by
+  hand at the first close.
 
 ## v5.4 — 23/10/2026
 

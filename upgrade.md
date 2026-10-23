@@ -75,7 +75,11 @@ is nothing to do — tell the user and stop.
 ## Procedure
 
 1. **Working language.** Ask the user what language they want to
-   work in. Default is English.
+   work in. Default is English. The state's files may already be in
+   more than one language (English files, a startup readme in the
+   user's language, say): unless the user says otherwise, keep each
+   file in the language it is in, and rewrite it from the template in
+   that language.
 
 2. **Detect current version** as described above. Tell the user
    what was found.
