@@ -20,9 +20,9 @@ Releases are numbered `vN.M`: `N` is the version of the standard
   not taken v5.4's yet, add it), and the pointer in step 3 of
   *Intermediate packaging*.
 
-From the second to the fifth upgrades of real projects to v5 (from
-hybrid v3 states, one set up by hand). The changes to `upgrade.md`
-and `upgrade4-5` below need nothing from states already at v5:
+From the second to the seventh upgrades of real projects to v5 (from
+hybrid v3 states, one set up by hand). The changes to `upgrade.md`,
+`update.md` and `upgrade4-5` below need nothing from states already at v5:
 
 - `upgrade.md`: a state may name its version in a sentence rather
   than in the marker line; take that version, and write the marker
@@ -30,6 +30,9 @@ and `upgrade4-5` below need nothing from states already at v5:
   hand-adopted startup is the hybrid case too.
 - `upgrade.md`: a state whose files are in several languages keeps
   each file in its own.
+- `update.md`: for an imported skill the project extended locally,
+  take the upstream copy, move the local additions to a personal
+  skill, and first search the state for references into the old one.
 - `upgrade4-5`: step 1 says where project-specific startup lines go;
   step 3 creates `handoffs/readme.md` when the state has none; step 4
   moves an intermediate-packaging procedure out of the conventions;

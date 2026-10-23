@@ -67,6 +67,17 @@ harmless: earlier versions of this file described rules the standard
 has since changed (a per-day counter, archiving by moving), and they
 contradict the project's own `setup.md`.
 
+**A *Modified* imported skill that the project extended.** A common
+case: the project's copy is an older version of the upstream skill,
+with local additions (notes, procedures specific to the project).
+Propose to the user: take the upstream copy whole, and move the local
+additions to a personal skill (`skills/personal/`, with its router
+row). Before replacing the copy, search the whole state for
+references into the old skill (a section of it that `setup.md` or
+another skill points to): a section that upstream dropped would
+otherwise disappear silently. Move what those references need into
+the personal skill, and fix the references.
+
 **Renamed or withdrawn upstream.** A *Local* imported skill whose
 upstream no longer has it has usually been renamed or withdrawn.
 Look for a *New* skill in the same collection that plausibly
