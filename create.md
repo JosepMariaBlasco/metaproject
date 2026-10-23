@@ -109,7 +109,9 @@ For `setup.md`, use the template that matches the project hosting
 (step 3.5):
 
 - **Standalone** → `templates/setup-standalone.md`
-- **External** → `templates/setup-external.md`
+- **External** → `templates/setup-external.md` (also for a project
+  kept in a repository that also delivers a backup zip of it at every
+  close: add the backup by hand, as `doc/concepts.md` explains)
 
 For `closing/readme.md`, use `templates/closing/readme.md`. For an
 external project, remove from it everything about the project zip
@@ -136,8 +138,13 @@ packaged as the project zip in step 5.
 
 ## Step 5 — Package and deliver
 
-Make sure the output directory exists, then package. Name the zips
-with session number `v1`.
+Decide the output directory first, as the setup template says for
+every close: `/mnt/user-data/outputs`, unless files written there
+do not reach the user in this environment; then use another writable
+directory (the session's scratchpad, say) in the commands below, and
+deliver with the environment's tool for sending files. Make sure the
+output directory exists, then package. Name the zips with session
+number `v1`.
 
 ### Standalone project (travels in zip)
 

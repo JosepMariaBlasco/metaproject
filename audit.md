@@ -99,9 +99,11 @@ audit proceeds.
 - Does it have the session closing protocol, and does it include
   the v5 elements: continuity check before archiving, archiving
   **by copy** (not by move), `mkdir -p` of the output directory,
-  the check that the outgoing zip keeps every archived handoff, and
-  delivering `closing/readme.md` loose? Does it say that a session
-  closes only when the user asks, and that a pause is not a close?
+  the check that the outgoing zip keeps every archived handoff,
+  another output directory when `/mnt/user-data/outputs` does not
+  reach the user, and delivering `closing/readme.md` loose? Does it
+  say that a session closes only when the user asks, and that a
+  pause is not a close?
   In an external project kept in a repository, does it ask for
   every change to be committed and pushed at close?
   A protocol that still says "archiving means moving" is on an older
@@ -111,9 +113,11 @@ audit proceeds.
 ### Startup file
 
 - Does `closing/readme.md` exist, with the project's slug in the
-  `find` patterns of its guard? Does its list of startup reads
-  match the *What to read on startup* section of `setup.md`? In an
-  external project, is it free of project-zip lines (a stray
+  `find` patterns of its guard, and does that `find` search the
+  three upload folders with `find -H` (an upload folder may itself
+  be a symbolic link)? Does its list of startup reads match the
+  *What to read on startup* section of `setup.md`? In an external
+  project, is it free of project-zip lines (a stray
   project zip must not be unpacked over the project)?
 - Ask the user whether the Claude project instructions still hold
   any startup instruction (unzipping, reading setup). If they do,

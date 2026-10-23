@@ -17,6 +17,18 @@ a GitHub repository, and is fetched only when a session needs it
 (`/home/claude/state/` and `/home/claude/project/`), so Claude never
 has to search for anything.
 
+Some external projects also hand you, at every close, a dated
+**backup zip** of their source (a `git archive` of the repository,
+say), and keep in the state the few files that are not in the
+repository. They are still external: the session works on the
+repository, and the backup is never unpacked (the startup file of an
+external project has no project-zip lines). Their `setup.md` comes
+from the external template, with the backup added by hand to
+*Intermediate packaging* and *At the end of each session* as a
+project-specific step. Name the backup so that it cannot be taken
+for a state zip (`slug-backup-YYYYMMDD-vN.zip`, say, never
+`slug-state-…`).
+
 ## What the state contains
 
 | File | What it is for |

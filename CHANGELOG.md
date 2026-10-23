@@ -5,6 +5,41 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 `M` counts releases within it. A new `N` always comes with an
 `upgrade(N-1)-N.md` step that brings existing states up to date.
 
+## v5.4 — 23/10/2026
+
+A maintenance release of standard **v5**, with no new upgrade step.
+It comes from the first upgrade of a real project to v5 through
+`upgrade.md` (from the hybrid v3 marker), which went through without
+failures but left four things to be decided by hand.
+
+- **The startup guard follows a symbolic-linked upload folder.** An upload folder may
+  be a symbolic link, and `find` does not descend into a symbolic
+  link given as a starting point: the guard would find no zip. The
+  guard in `closing/readme.md` and the closing check in the setup
+  templates now use `find -H`.
+- **When `/mnt/user-data/outputs` does not reach the user.** Some
+  Claude Code sessions have no such folder, or do not show its
+  contents. The closing protocol in the setup templates now says to
+  package in another writable directory (the scratchpad, say) and
+  deliver with the environment's tool for sending files. `create`
+  says the same for the first zips; `audit` checks it.
+- **Rexx Skills' repository.** `update` needs an exact copy of a
+  collection. `upgrade4-5` and `doc/skill-collections.md` now name
+  the public repository `JosepMariaBlasco/rexx-skills` next to the
+  site.
+- **Repository plus backup zip.** A project kept in a repository that
+  also delivers a backup zip of it at every close fitted neither
+  setup template. It is external: `doc/concepts.md` explains how to
+  add the backup, and `create` and `upgrade4-5` point there.
+
+**If your state is already at v5**, change `find` to `find -H` in
+your `closing/readme.md` and in the closing check of your
+`setup.md`. Copy into `setup.md` the paragraph about the output
+directory that now precedes the packaging commands in the setup
+template, and the pointer to it in step 3 of *Intermediate
+packaging*, adapting the user's name and the language to the
+project (or ask Claude to do all of it).
+
 ## v5.3 — 23/10/2026
 
 A fix to the startup of standard **v5**, with no new upgrade step.

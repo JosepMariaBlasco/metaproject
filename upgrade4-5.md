@@ -42,8 +42,9 @@ In some environments uploaded files do not arrive in
 `/mnt/user-data/uploads/` but in
 `/mnt/user-data/attachments/<session>/<hash>-name` (the Claude app,
 in cloud sessions) or in `/root/.claude/uploads/<session>/<hash>-name`.
-The guard looks in all three, with a pattern that admits the hash
-prefix, and stops and asks the user when it finds no state zip.
+The guard looks in all three, following an upload folder that is
+itself a symbolic link (`find -H`), with a pattern that admits the
+hash prefix, and stops and asks the user when it finds no state zip.
 
 ### 3. The conventions become a startup read
 
@@ -101,7 +102,10 @@ each against its own upstream.
 Throughout, use the templates of the Metaproject version you are
 upgrading to as the canonical wording: `templates/closing/readme.md`,
 `templates/setup-standalone.md` or `templates/setup-external.md`
-(whichever matches the project's hosting), `templates/conventions.md`
+(whichever matches the project's hosting; a project kept in a
+repository that also delivers a backup zip of it at every close is
+external, with the backup kept as a project-specific step, as
+`doc/concepts.md` explains), `templates/conventions.md`
 and `templates/router.md`. Write in the project's working language
 if it is not English, keeping the substance.
 
@@ -115,11 +119,12 @@ everything about the project zip (the sentence about it, and every line of
 the guard that handles `$P`).
 
 If the file already exists (adopted by hand), bring it in line with
-the template: the guard must search the three upload locations, use
-exact name patterns, take the
-newest zip when there is more than one (and say so), and stop when
-there is none; the startup reads must be four — setup, handoff,
-conventions and router. Replacing the hand-adopted file with the
+the template: the guard must search the three upload locations
+(with `find -H`, since an upload folder may itself be a symbolic
+link), use exact name patterns, take the newest zip when there is
+more than one (and say so), and stop when there is none; the
+startup reads must be four — setup, handoff, conventions and
+router. Replacing the hand-adopted file with the
 template is usually simplest.
 
 Run the `find` of the guard, with the slug substituted, and check
@@ -145,8 +150,10 @@ adjusting names and wording to the project:
   paragraph (a session closes only when the user asks; a pause is
   not a close), and replace the handoff and packaging bullets with
   the template's — the absolute counter, the continuity check,
-  archiving by copy, the `mkdir -p`, the check of handoffs in the
-  outgoing zip, and delivering `closing/readme.md` loose. Remove any
+  archiving by copy, the `mkdir -p`, the other output directory when
+  `/mnt/user-data/outputs` does not reach the user, the check of
+  handoffs in the outgoing zip, and delivering `closing/readme.md`
+  loose. Remove any
   text saying that archiving means moving. In an external project
   kept in a repository, add the template's bullet asking for every
   change to be committed and pushed. Keep any project-specific
@@ -188,7 +195,7 @@ or a **personal** one.
 
    | Skill (v4 name) | Where it lives now |
    |---|---|
-   | `oorexx`, `oorexx-run`, `ebnf2svg` | Rexx Skills, `https://rexx.epbcn.com/skills/` |
+   | `oorexx`, `oorexx-run`, `ebnf2svg` | Rexx Skills, `https://rexx.epbcn.com/skills/` (exact copy: `https://github.com/JosepMariaBlasco/rexx-skills`) |
    | `apache-cgi-oorexx` | Rexx Skills (same name) |
    | `apache-cgi-rexx` | Rexx Skills, renamed to `apache-cgi-oorexx` |
    | `pagedjs-cli`, `rexxpub` (and `rexxpub/`) | No published collection at the time of writing |

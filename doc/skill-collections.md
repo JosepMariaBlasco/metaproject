@@ -60,4 +60,6 @@ working with the Rexx programming language (ooRexx and Regina):
 installing and running the interpreters, serving scripts on the web,
 building documentation, and the pitfalls of the language. It is
 published as individual pages plus a zip,
-`rexx-skills-latest.zip`.
+`rexx-skills-latest.zip`, and kept in a public repository,
+[`JosepMariaBlasco/rexx-skills`](https://github.com/JosepMariaBlasco/rexx-skills):
+a clone is the easiest exact copy for `update` to compare against.

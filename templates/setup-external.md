@@ -176,7 +176,8 @@ of each session*).
    any earlier interim zip from the output directory. Work on the
    project itself is saved to its external source as usual (for a
    repository: committed and pushed).
-3. Deliver it to the user.
+3. Deliver it to the user (for the output directory and how to
+   deliver, see *At the end of each session*).
 
 Do not archive or touch `handoff.md` during an interim packaging.
 
@@ -242,7 +243,18 @@ intermediate packaging) and wait for the answer.
   vM). Make sure the output directory exists and holds no interim
   zips of this session any more, and always package
   from `/home/claude/` so that the zip contains `state/` as its root
-  directory:
+  directory.
+
+  Before packaging, decide the output directory. It is
+  `/mnt/user-data/outputs`, unless files written there do not reach
+  {{USER_NAME}} in this environment: it did not exist before this
+  session (as in some Claude Code sessions), or the environment
+  gives you a tool for sending files to the user and nothing says
+  that `/mnt/user-data/outputs` is shown. In that case, or if in
+  doubt (ask {{USER_NAME}}), use another writable directory (the
+  session's scratchpad, say) in every command of this section and
+  of *Intermediate packaging*, and deliver every file, the loose
+  `closing/readme.md` included, with that tool.
 
   ```bash
   mkdir -p /mnt/user-data/outputs
@@ -258,7 +270,7 @@ intermediate packaging) and wait for the answer.
   matching upload):
 
   ```bash
-  IN=$(find /mnt/user-data/uploads /mnt/user-data/attachments /root/.claude/uploads \
+  IN=$(find -H /mnt/user-data/uploads /mnt/user-data/attachments /root/.claude/uploads \
          \( -name '{{PROJECT_SLUG}}-state-*.zip' -o -name '*-{{PROJECT_SLUG}}-state-*.zip' \) \
          -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2-)
   echo "Incoming: $IN"

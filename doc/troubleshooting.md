@@ -23,9 +23,22 @@ land in different folders, sometimes with a code added in front of
 the name (`79d408a3-novel-state-…zip`).
 
 **What to do.** Nothing, on v5: the readme looks in every known
-place and accepts the prefix. If it still finds nothing, check the
+place and accepts the prefix (since v5.4, also when an upload folder
+is a symbolic link). If it still finds nothing, check the
 file name: it must contain `yourslug-state-`. On older standards,
 `upgrade`.
+
+## Claude packaged the zips but you never got them
+
+**Why.** Claude writes the closing zips to `/mnt/user-data/outputs`.
+Some environments (some Claude Code sessions) have no such folder,
+or never show you what is in it.
+
+**What to do.** Ask Claude to package them in another folder and
+send them to you with its tool for sending files; on v5, the closing
+protocol in `setup.md` already says so (since v5.4). If your
+`setup.md` lacks that paragraph, ask Claude to copy it from the setup
+template.
 
 ## Claude found more than one state zip
 
