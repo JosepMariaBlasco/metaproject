@@ -31,9 +31,13 @@ Some states carry a hybrid marker of the form
 ```
 
 These adopted the v5 startup and closing rules by hand before v5
-existed, copying them from another project. Treat them as **v3**: apply `upgrade3-4` as usual, and
-`upgrade4-5` will recognise what is already in place and complete
-only what is missing.
+existed, copying them from another project. Treat them as **v3**:
+apply `upgrade3-4` as usual, and `upgrade4-5` will recognise what is
+already in place and complete only what is missing. A state may be
+in the same case with a plain `v3` marker (or a version named in a
+sentence): what gives it away is a `closing/readme.md` with a
+guarded unzip, or a closing protocol that archives by copy. Treat it
+the same way.
 
 ## Available hops and current standard
 

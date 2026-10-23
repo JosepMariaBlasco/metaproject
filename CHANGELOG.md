@@ -20,13 +20,14 @@ Releases are numbered `vN.M`: `N` is the version of the standard
   not taken v5.4's yet, add it), and the pointer in step 3 of
   *Intermediate packaging*.
 
-From the second to the fourth upgrades of real projects to v5 (from
+From the second to the fifth upgrades of real projects to v5 (from
 hybrid v3 states, one set up by hand). The changes to `upgrade.md`
 and `upgrade4-5` below need nothing from states already at v5:
 
 - `upgrade.md`: a state may name its version in a sentence rather
   than in the marker line; take that version, and write the marker
-  when done.
+  when done. A plain `v3` marker on a state that already has the
+  hand-adopted startup is the hybrid case too.
 - `upgrade.md`: a state whose files are in several languages keeps
   each file in its own.
 - `upgrade4-5`: step 1 says where project-specific startup lines go;
