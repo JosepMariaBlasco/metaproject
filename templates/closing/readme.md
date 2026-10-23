@@ -23,10 +23,12 @@ always present and the closing routine never moves or renames it.)
 ```bash
 if [ ! -f /home/claude/state/setup.md ]; then
   # Uploads arrive in /mnt/user-data/uploads/ or, in some environments,
-  # in /root/.claude/uploads/<session>/<hash>-name: look in both.
+  # in /mnt/user-data/attachments/<session>/<hash>-name or
+  # /root/.claude/uploads/<session>/<hash>-name: look in all three.
+  # setup.md repeats this list in its closing check: keep both in step.
   # Newest first, so that a zip left over from an earlier session never wins.
   find_zips() {
-    find /mnt/user-data/uploads /root/.claude/uploads \
+    find /mnt/user-data/uploads /mnt/user-data/attachments /root/.claude/uploads \
          \( -name "{{PROJECT_SLUG}}-$1-*.zip" -o -name "*-{{PROJECT_SLUG}}-$1-*.zip" \) \
          -printf '%T@ %p\n' 2>/dev/null | sort -rn | cut -d' ' -f2-
   }

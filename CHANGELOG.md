@@ -5,6 +5,25 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 `M` counts releases within it. A new `N` always comes with an
 `upgrade(N-1)-N.md` step that brings existing states up to date.
 
+## v5.3 — 23/10/2026
+
+A fix to the startup of standard **v5**, with no new upgrade step.
+
+- **Uploads in the Claude app's cloud sessions are found.** There,
+  attached files arrive at
+  `/mnt/user-data/attachments/<session>/<hash>-name`, a location the
+  startup guard did not search: it found no state zip and stopped.
+  The guard in `closing/readme.md`, the closing check in the setup
+  templates and `upgrade4-5` now search three locations:
+  `/mnt/user-data/uploads/`, `/mnt/user-data/attachments/` and
+  `/root/.claude/uploads/`.
+
+**If your state is already at v5**, add `/mnt/user-data/attachments`
+to the `find` in your `closing/readme.md` and in the closing check of
+your `setup.md` (or ask Claude to copy both from the templates). Until
+then, in a session where the guard finds nothing, tell Claude where
+the zip is.
+
 ## v5.2 — 21/10/2026
 
 A maintenance release of standard **v5**, with no new upgrade step:

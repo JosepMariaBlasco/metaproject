@@ -36,12 +36,14 @@ behind a guard anchored to `setup.md`
 idempotent. The project instructions are left without any startup
 instruction.
 
-### 2. Uploads are looked for in two places
+### 2. Uploads are looked for in three places
 
 In some environments uploaded files do not arrive in
 `/mnt/user-data/uploads/` but in
-`/root/.claude/uploads/<session>/<hash>-name`. The guard looks in
-both, with a pattern that admits the hash prefix.
+`/mnt/user-data/attachments/<session>/<hash>-name` (the Claude app,
+in cloud sessions) or in `/root/.claude/uploads/<session>/<hash>-name`.
+The guard looks in all three, with a pattern that admits the hash
+prefix, and stops and asks the user when it finds no state zip.
 
 ### 3. The conventions become a startup read
 
@@ -113,7 +115,8 @@ everything about the project zip (the sentence about it, and every line of
 the guard that handles `$P`).
 
 If the file already exists (adopted by hand), bring it in line with
-the template: the guard must use exact name patterns, take the
+the template: the guard must search the three upload locations, use
+exact name patterns, take the
 newest zip when there is more than one (and say so), and stop when
 there is none; the startup reads must be four — setup, handoff,
 conventions and router. Replacing the hand-adopted file with the

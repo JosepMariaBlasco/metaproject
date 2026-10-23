@@ -30,7 +30,7 @@ it never goes into this repository.
 | Rule | Canonical source | Also stated in |
 |---|---|---|
 | Current standard version | the `upgradeN-M.md` files | `templates/setup-*.md` (marker), `audit.md`, `upgrade.md`, `doc/concepts.md` (example marker) |
-| Startup: guarded unzip, upload folders, newest zip | `templates/closing/readme.md` | `templates/setup-*.md` (*Session startup*), `upgrade4-5.md`, `audit.md`, `README.md`, `doc/quickstart.md`, `doc/sessions.md`, `doc/troubleshooting.md` |
+| Startup: guarded unzip, upload folders, newest zip | `templates/closing/readme.md` | `templates/setup-*.md` (*Session startup*, and the upload folders again in the `find` of the closing check), `upgrade4-5.md`, `audit.md`, `README.md`, `doc/quickstart.md`, `doc/sessions.md`, `doc/troubleshooting.md` |
 | The four startup reads | `templates/setup-*.md` (*What to read on startup*) | `templates/closing/readme.md`, `audit.md`, `upgrade4-5.md`, `doc/concepts.md`, `doc/sessions.md` |
 | Nothing about startup in the project instructions; the harmless line | `create.md` (step 5) | `templates/setup-*.md`, `migrate.md` (phase 6), `upgrade4-5.md`, `audit.md`, `doc/quickstart.md`, `doc/troubleshooting.md` |
 | Inbox files (`pending-tasks`, `framework-feedback`, `interim-vN`) | `templates/setup-*.md` (*Inbox files*) | `audit.md`, `upgrade.md`, `upgrade4-5.md`, `doc/concepts.md`, `doc/sessions.md`, `doc/troubleshooting.md` |

@@ -29,9 +29,10 @@ The startup instruction lives instead in `closing/readme.md`, which
 {{USER_NAME}} hands over, loose, together with the zips at the start
 of each session. It wraps the decompression in a guard anchored to
 this file (`if [ ! -f /home/claude/state/setup.md ]; then … fi`), and
-looks for the uploads both in `/mnt/user-data/uploads/` and in
-`/root/.claude/uploads/` (where some environments place them, with a
-hash prefix in the file name).
+looks for the uploads in `/mnt/user-data/uploads/`,
+`/mnt/user-data/attachments/` and `/root/.claude/uploads/` (the last
+two are where some environments place them, in a per-session folder
+and with a hash prefix in the file name).
 
 The project instructions hold no startup instruction. They may hold
 lines that do no harm when reinjected, such as this one, which only
@@ -251,7 +252,7 @@ intermediate packaging) and wait for the answer.
   matching upload):
 
   ```bash
-  IN=$(find /mnt/user-data/uploads /root/.claude/uploads \
+  IN=$(find /mnt/user-data/uploads /mnt/user-data/attachments /root/.claude/uploads \
          \( -name '{{PROJECT_SLUG}}-state-*.zip' -o -name '*-{{PROJECT_SLUG}}-state-*.zip' \) \
          -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2-)
   echo "Incoming: $IN"
