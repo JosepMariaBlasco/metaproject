@@ -7,9 +7,22 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 
 ## Unreleased
 
-From the second and third upgrades of real projects to v5 (from
-hybrid v3 states, one set up by hand). Only `upgrade.md` and `upgrade4-5` change:
-nothing to do for states already at v5.
+- **Delivering the closing files.** v5.4 asked Claude to judge
+  whether `/mnt/user-data/outputs` reaches the user, and in an
+  environment that has both that folder and a tool for sending files
+  that was a guess (fourth upgrade). Now the rule is plain: when there
+  is a tool for sending files, deliver every file with it; package in
+  `/mnt/user-data/outputs`, and use another directory only if that one
+  cannot be written. In the setup templates, `create`, `audit`,
+  `upgrade4-5` and `doc/troubleshooting.md`. **If your state is
+  already at v5**, replace in `setup.md` the paragraph that precedes
+  the packaging commands with the template's (or, if your state has
+  not taken v5.4's yet, add it), and the pointer in step 3 of
+  *Intermediate packaging*.
+
+From the second to the fourth upgrades of real projects to v5 (from
+hybrid v3 states, one set up by hand). The changes to `upgrade.md`
+and `upgrade4-5` below need nothing from states already at v5:
 
 - `upgrade.md`: a state may name its version in a sentence rather
   than in the marker line; take that version, and write the marker

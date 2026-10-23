@@ -138,12 +138,12 @@ packaged as the project zip in step 5.
 
 ## Step 5 — Package and deliver
 
-Decide the output directory first, as the setup template says for
-every close: `/mnt/user-data/outputs`, unless files written there
-do not reach the user in this environment; then use another writable
-directory (the session's scratchpad, say) in the commands below, and
-deliver with the environment's tool for sending files. Make sure the
-output directory exists, then package. Name the zips with session
+As the setup template says for every close: if the environment
+gives you a tool for sending files to the user, deliver every file
+with it; package in `/mnt/user-data/outputs`, or, only if it cannot
+be written, in another writable directory (the session's scratchpad,
+say) used in the commands below. Make sure the output directory
+exists, then package. Name the zips with session
 number `v1`.
 
 ### Standalone project (travels in zip)

@@ -100,8 +100,8 @@ audit proceeds.
   the v5 elements: continuity check before archiving, archiving
   **by copy** (not by move), `mkdir -p` of the output directory,
   the check that the outgoing zip keeps every archived handoff,
-  another output directory when `/mnt/user-data/outputs` does not
-  reach the user, and delivering `closing/readme.md` loose? Does it
+  delivering with the environment's file-sending tool when there is
+  one, and delivering `closing/readme.md` loose? Does it
   say that a session closes only when the user asks, and that a
   pause is not a close?
   In an external project kept in a repository, does it ask for

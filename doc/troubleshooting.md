@@ -30,15 +30,14 @@ file name: it must contain `yourslug-state-`. On older standards,
 
 ## Claude packaged the zips but you never got them
 
-**Why.** Claude writes the closing zips to `/mnt/user-data/outputs`.
-Some environments (some Claude Code sessions) have no such folder,
-or never show you what is in it.
+**Why.** Claude writes the closing zips to `/mnt/user-data/outputs`,
+and some environments (some Claude Code sessions) never show you
+what is in that folder.
 
-**What to do.** Ask Claude to package them in another folder and
-send them to you with its tool for sending files; on v5, the closing
-protocol in `setup.md` already says so (since v5.4). If your
-`setup.md` lacks that paragraph, ask Claude to copy it from the setup
-template.
+**What to do.** Ask Claude to send them to you with its tool for
+sending files. On v5, the closing protocol in `setup.md` says to do
+so whenever there is such a tool (since v5.5). If your `setup.md`
+lacks that paragraph, ask Claude to copy it from the setup template.
 
 ## Claude found more than one state zip
 

@@ -160,8 +160,8 @@ adjusting names and wording to the project:
   paragraph (a session closes only when the user asks; a pause is
   not a close), and replace the handoff and packaging bullets with
   the template's — the absolute counter, the continuity check,
-  archiving by copy, the `mkdir -p`, the other output directory when
-  `/mnt/user-data/outputs` does not reach the user, the check of
+  archiving by copy, the `mkdir -p`, delivering with the
+  environment's file-sending tool when there is one, the check of
   handoffs in the outgoing zip, and delivering `closing/readme.md`
   loose. Remove any
   text saying that archiving means moving. In an external project
