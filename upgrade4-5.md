@@ -145,7 +145,11 @@ adjusting names and wording to the project:
   conventions and router — with the reasons given in the template.
   `conventions.md` leaves the on-demand list.
 - **Intermediate packaging**: the whole section, before *At the end
-  of each session*.
+  of each session*. If the project already made interim zips under
+  another name (a translation of `-interim`, say), adopt `-interim`,
+  and at the first close remove the old interim zips from the output
+  directory by hand: the template's cleanup only matches
+  `*-interim.zip`.
 - **At the end of each session**: add the template's opening
   paragraph (a session closes only when the user asks; a pause is
   not a close), and replace the handoff and packaging bullets with
@@ -163,9 +167,9 @@ If the setup carries a hand-adopted *Session startup* section or
 closing rules, replace them with the template's wording rather than
 keeping two versions.
 
-### 3. Replace `handoffs/readme.md`
+### 3. Create or replace `handoffs/readme.md`
 
-Replace `/home/claude/state/handoffs/readme.md` with Metaproject's
+Create or replace `/home/claude/state/handoffs/readme.md` with Metaproject's
 `handoffs/readme.md` (translated, if the project's state is in
 another language, keeping the substance). The project's copy was
 made when the project was created, and nothing has refreshed it
@@ -204,7 +208,9 @@ or a **personal** one.
 3. Skills without a collection are local to the project. Propose
    to the user, for each one, moving it to `skills/personal/` (with
    its row to the router's *Personal* section) or removing it. Do
-   nothing without the user's decision.
+   nothing without the user's decision. When a skill is moved, fix
+   the paths that point to it (in the router, in other skills) and
+   the paths inside it (its own subfolder, skills renamed upstream).
 4. Inactive skills (present in `skills/` but with no router row)
    that came from Metaproject — those named in the table above —
    are no longer distributed. Propose removing them; the user

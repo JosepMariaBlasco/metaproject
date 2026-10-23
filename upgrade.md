@@ -18,8 +18,11 @@ Read `/home/claude/state/setup.md` and look for the marker:
 *Metaproject standard: vN.*
 ```
 
-This line appears near the top, under the title. If the marker
-is absent, the state predates versioning — treat it as **v1**.
+This line appears near the top, under the title. A state set up by
+hand may name its version in a sentence instead (in its working
+language, say "standard v3 of the metaproject"): take that version,
+and write the marker line when the upgrade is done. If neither is
+there, the state predates versioning — treat it as **v1**.
 
 Some states carry a hybrid marker of the form
 

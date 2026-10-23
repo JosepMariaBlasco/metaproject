@@ -5,6 +5,20 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 `M` counts releases within it. A new `N` always comes with an
 `upgrade(N-1)-N.md` step that brings existing states up to date.
 
+## Unreleased
+
+From the second upgrade of a real project to v5 (a state set up by
+hand, from a hybrid v3). Only `upgrade.md` and `upgrade4-5` change:
+nothing to do for states already at v5.
+
+- `upgrade.md`: a state may name its version in a sentence rather
+  than in the marker line; take that version, and write the marker
+  when done.
+- `upgrade4-5`: step 3 creates `handoffs/readme.md` when the state
+  has none; step 5 fixes the paths to and inside a skill moved to
+  `personal/`; interim zips named in another language are renamed,
+  and the old ones removed by hand at the first close.
+
 ## v5.4 — 23/10/2026
 
 A maintenance release of standard **v5**, with no new upgrade step.
