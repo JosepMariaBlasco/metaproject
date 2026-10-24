@@ -102,9 +102,12 @@ each against its own upstream.
 Throughout, use the templates of the Metaproject version you are
 upgrading to as the canonical wording: `templates/closing/readme.md`,
 `templates/setup-standalone.md` or `templates/setup-external.md`
-(whichever matches the project's hosting; a project kept in a
-repository that also delivers a backup zip of it at every close is
-external, with the backup kept as a project-specific step, as
+(whichever matches the project's hosting, which may not be what
+the old setup said: a project whose material lives in repositories
+and that never shipped a project zip is external, even if its setup
+was written standalone-style; a project kept in a repository that
+also delivers a backup zip of it at every close is external too,
+with the backup kept as a project-specific step, as
 `doc/concepts.md` explains), `templates/conventions.md`
 and `templates/router.md`. Write in the project's working language
 if it is not English, keeping the substance.
