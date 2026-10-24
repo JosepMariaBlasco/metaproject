@@ -23,7 +23,7 @@ kinds: a deviation (a rule or step missing or contradicted),
 (an addition); only deviations are fixed, and wording can be
 aligned. Then an optional *Fixing* step goes deviation
 by deviation, says what it would change and applies only what the
-user approves, and offers to align the wording-only sections, so
+user approves, and offers to align the wording-only sentences, so
 that the next audit is quiet about them. An older version is sent to
 `upgrade`, a skill or `handoffs/readme.md` that differs from its
 upstream to `update`, a gap in the handoffs is never filled (a
