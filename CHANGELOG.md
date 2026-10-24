@@ -5,6 +5,33 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 `M` counts releases within it. A new `N` always comes with an
 `upgrade(N-1)-N.md` step that brings existing states up to date.
 
+## v5.6 — 24/10/2026
+
+A maintenance release of standard **v5**, with no new upgrade step.
+It changes how the next maintenance releases reach states that are
+already at v5.
+
+**`audit` can fix what it finds.** Until now `audit` only reported;
+after v5.2, v5.4 and v5.5, a state already at v5 had to copy each
+change from the templates by hand, following a paragraph in these
+notes. Now `audit` also compares `setup.md`, `closing/readme.md` and
+the standard conventions with the current templates, section by
+section and in substance (language, names and the project's own
+lines are not deviations), and ends with an optional *Fixing* step:
+deviation by deviation, it says what it would change and applies only
+what the user approves. An older version is sent to `upgrade`,
+differing core skills or `handoffs/readme.md` to `update`, a gap in
+the handoffs is never filled (a tombstone only if the user confirms
+the loss), and what lives in the Claude project instructions is left
+for the user to change.
+
+**`upgrade` on a state already at the current version** no longer
+just stops: it proposes `audit` with its *Fixing* step.
+
+**If your state is already at v5**, there is nothing to copy by hand
+this time: run `audit` and accept the fixes you want. From now on,
+that is how a v5 state takes a maintenance release.
+
 ## v5.5 — 24/10/2026
 
 A maintenance release of standard **v5**, with no new upgrade step.

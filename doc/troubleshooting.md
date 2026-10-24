@@ -37,7 +37,8 @@ what is in that folder.
 **What to do.** Ask Claude to send them to you with its tool for
 sending files. On v5, the closing protocol in `setup.md` says to do
 so whenever there is such a tool (since v5.5). If your `setup.md`
-lacks that paragraph, ask Claude to copy it from the setup template.
+lacks that paragraph, [`audit`](operations.md) reports it and offers
+to bring it in from the setup template.
 
 ## Claude found more than one state zip
 
@@ -89,8 +90,8 @@ its output folder and packages the zips again. Keep only the new
 ones.
 
 If your project's `setup.md` lacks that rule (states brought to v5
-before release 5.2), [`audit`](operations.md) reports it; ask Claude
-to copy the paragraph from the setup template into it.
+before release 5.2), [`audit`](operations.md) reports it and offers
+to bring the paragraph in from the setup template.
 
 ## Something else
 

@@ -1,8 +1,10 @@
 # audit
 
 Checks whether a project's state structure conforms to the
-Metaproject standard. Does not fix anything — lists deviations
-and lets the user decide what to do.
+Metaproject standard. It observes first: it lists what conforms
+and what deviates, and changes nothing while doing so. Then, only
+if the user wants, it fixes the deviations the user approves, one
+by one (see *Fixing*, at the end).
 
 ## What is checked
 
@@ -186,6 +188,44 @@ audit proceeds.
   is not an error, but it is worth the user's visibility in case
   conventions have emerged that are not yet written down.
 
+### Comparison with the templates
+
+The checks above name the elements the standard requires. A
+maintenance release may also change wording that none of them names
+(a flag in a command, a sentence in the closing protocol), so compare
+the state with the current templates as well, section by section.
+Skip this comparison when the state is on an older version than the
+current standard: `upgrade` brings the wording in, and the report
+would only fill up with what the upgrade will change anyway.
+
+- `setup.md` with the setup template it follows:
+  `templates/setup-external.md` if the project's material lives
+  outside the state (a repository, a server), otherwise
+  `templates/setup-standalone.md`.
+- `closing/readme.md` with `templates/closing/readme.md`. For an
+  external project, compare with the template **without its
+  project-zip lines**, as `create.md` says to remove them: their
+  absence is not a deviation, and their presence is (see *Startup
+  file* above).
+- The *Standard conventions* of `conventions.md` with those of
+  `templates/conventions.md`.
+
+Sections the template leaves as placeholders (*Project setup* in
+the setup, *Project-specific conventions*) are not compared, and
+neither are template options that do not apply to the project (the
+git convention, in a project with no repository).
+
+Compare substance, not text. The state may be in another language,
+name the user and the project, and carry lines of its own. Report a
+section as a deviation only when it lacks a rule or a step the
+template has, or says something that contradicts it, and say exactly
+what (for instance, "the `find` of the closing check has no `-H`").
+What the state adds and the template does not have (a section of its
+own, project-specific lines) is not a deviation: mention it briefly
+among what conforms, so the user sees it. A deviation that the
+project's conventions record as a decision is reported as such, not
+as news.
+
 ### Project files
 
 - Are there files in `/mnt/project/` (the Files/Knowledge
@@ -203,4 +243,57 @@ Present the results to the user grouped in two blocks:
    only the user knows.
 
 After presenting the report, ask the user whether they want to
-address any of the deviations.
+address any of the deviations. If they do, go on to *Fixing*.
+
+## Fixing
+
+**An older version comes first.** If the state is on an older
+version than the current standard, do not patch it piece by piece
+and fix nothing else: offer to run `upgrade.md` instead (it ends by
+proposing `update`). The rest of the report will change after the
+upgrade.
+
+Otherwise, go through the deviations one at a time, in the order of
+the report. For each:
+
+1. Say what the fix would change — which file, which section, and
+   what it would say afterwards — and ask the user: fix it now,
+   leave it as it is, or leave it for later.
+2. Apply only what the user approves. The user may approve several
+   at once ("all the ones in `setup.md`"); even then, apply them one
+   by one and show each.
+3. A fix brings in the current wording of the template the
+   comparison used (`templates/setup-*.md`,
+   `templates/closing/readme.md`, `templates/conventions.md`), in
+   the language of the file being fixed, with the user's name and
+   the project's slug. Change only what the deviation names — add
+   the missing rule or step, replace the sentence that contradicts
+   the template — and do not rewrite the rest of the section.
+   Cross-references use the section names the file already uses.
+4. If the user leaves a fix for later, add an entry for it to
+   `/home/claude/state/pending-tasks.md` (create the file if it does
+   not exist).
+
+Some deviations are not fixed by editing the state here:
+- **A distributed copy that differs.** A core skill or
+  `handoffs/readme.md` that is not the same as Metaproject's: the
+  fix is `update.md`, which compares them and asks about each
+  difference. Offer to run it.
+- **A gap in the handoff sequence.** Never filled. If the user
+  confirms that the handoff is lost for good, write a tombstone, as
+  the closing protocol of the setup template describes (a file
+  `handoffs/handoff-YYYYMMDD-vK.md`, with today's date, titled
+  `# Handoff vK — lost`); otherwise leave the gap as it is.
+- **A rule the template says to copy into the project's
+  repository** (the git attribution, into its `CLAUDE.md`): fix it
+  there, in the repository, and commit and push it as the closing
+  protocol says.
+- **What only the user can change:** the Claude project
+  instructions and the files in `/mnt/project/`. Tell the user what
+  to change there, and why.
+
+When the user leaves a deviation as it is on purpose, propose
+recording the decision in the *Project-specific conventions* of
+`conventions.md`, so that the next audit reports it as a known
+decision. When fixing is over, write in the new handoff, at close,
+what was fixed and what was left.

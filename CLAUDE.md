@@ -24,6 +24,12 @@ it never goes into this repository.
   one of the rules below, change its canonical source first, then
   review every other file in its row, in the same commit. If you add
   a new file that restates one of these rules, add it to its row.
+- **Maintenance releases.** A state already at the current version
+  takes a maintenance release through `audit`, which compares it with
+  the templates and fixes what the user approves. So a change meant
+  for such states must reach the templates or the files distributed
+  as copies (which `update` syncs), or be a check in `audit.md`; one
+  that lives only in an operation or in `doc/` does not reach them.
 
 ## Repeated claims
 
@@ -40,6 +46,7 @@ it never goes into this repository.
 | State structure (which files, which are inbox files) | `templates/setup-*.md` (*State files*) | `create.md`, `migrate.md`, `audit.md`, `templates/README.md`, `templates/handoff.md`, `doc/concepts.md` |
 | Skill layers (core, imported with **Source**, personal) | `update.md` | `templates/router.md`, `create.md`, `migrate.md`, `audit.md`, `upgrade4-5.md`, `skills/README.md`, `doc/concepts.md`, `doc/skill-collections.md`, `doc/operations.md` |
 | Files distributed as copies (`skills/core/`, `handoffs/readme.md`) | `update.md` | `create.md`, `migrate.md`, `audit.md`, `upgrade.md`, `upgrade4-5.md`, `skills/README.md`, `doc/operations.md` |
+| Audit observes first and fixes only what the user approves, comparing with the templates; a state already current goes to `audit`, not `upgrade` | `audit.md` | `upgrade.md` (current version), `doc/operations.md`, `doc/troubleshooting.md` (and this file, *Maintenance releases*) |
 | Standard conventions | `templates/conventions.md` | `audit.md`, `upgrade4-5.md`, `doc/sessions.md` (and this file, for git attribution) |
 
 Not in the table, and not to be edited for coherence: `article.md`

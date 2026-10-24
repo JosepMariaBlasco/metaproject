@@ -74,7 +74,11 @@ the fix belongs upstream in Metaproject, not in this operation.
 
 When the three agree, that number is the current version of the
 standard. If the state is already at the current version, there
-is nothing to do — tell the user and stop.
+is no hop to apply — tell the user. A maintenance release of the
+same version may still have changed the templates since the state
+was brought to this version, so propose running `audit.md` with its *Fixing* step
+instead: it compares the state with the current templates and fixes,
+with the user's approval, what it finds.
 
 ## Procedure
 
