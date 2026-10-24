@@ -174,6 +174,26 @@ audit proceeds.
   so that Claude does not have to resolve anything at read time.
   Report any relative paths as deviations.
 
+### Skills against their upstreams
+
+Obtain exact copies of the upstreams, as the list in step 1 of
+`update.md` says (never a rendered web page), and compare byte for
+byte:
+
+- each file in `skills/core/` with Metaproject's `skills/core/`;
+- each imported skill with the collection named in the **Source** of
+  its router row. An imported skill without a **Source** is not
+  compared; *Router* reports it.
+
+Report, among the deviations, every skill that differs from its
+upstream, every one present here but not upstream, and every core
+skill that is new upstream (what `update` would call *Modified*,
+*Local* and *New*); a modification the conventions record is named
+as known. If an upstream cannot be downloaded, ask the user to
+upload it; if that is not possible either, its skills are reported
+as not checked, not as conforming. `skills/personal/` is not
+compared.
+
 ### Conventions
 
 - Does it define the working language?
@@ -215,16 +235,30 @@ the setup, *Project-specific conventions*) are not compared, and
 neither are template options that do not apply to the project (the
 git convention, in a project with no repository).
 
-Compare substance, not text. The state may be in another language,
-name the user and the project, and carry lines of its own. Report a
-section as a deviation only when it lacks a rule or a step the
-template has, or says something that contradicts it, and say exactly
-what (for instance, "the `find` of the closing check has no `-H`").
-What the state adds and the template does not have (a section of its
-own, project-specific lines) is not a deviation: mention it briefly
-among what conforms, so the user sees it. A deviation that the
-project's conventions record as a decision is reported as such, not
-as news.
+The state may be in another language, name the user and the
+project, and carry lines of its own. One section may hold
+differences of several kinds; each difference is one of three:
+
+- **A deviation:** a rule or a step the template has is missing, or
+  something contradicts it. Say exactly what (for instance, "the
+  `find` of the closing check has no `-H`").
+- **Wording only:** a sentence that says the same as the template's
+  sentence, in other words. In a translated file, only a sentence
+  that is not a translation of the template's current one — reworded,
+  merged, split or reordered; a different but correct choice of words
+  in the translation is not a difference. Not a deviation; list it
+  apart (see *Report format*), so that it can be aligned. Once
+  aligned, a later audit is quiet about it, and a new difference
+  stands out.
+- **The project's own:** what the state adds and the template does
+  not have (a section of its own, project-specific lines, a clause
+  added to a template sentence). Not a deviation: mention it briefly
+  among what conforms, so the user sees it.
+
+What the project's conventions record — a deviation kept on
+purpose, wording kept on purpose, an addition of its own — is named
+as known, not reported as news: a known addition among what
+conforms, a known deviation among the deviations, marked as known.
 
 ### Project files
 
@@ -234,16 +268,21 @@ as news.
 
 ## Report format
 
-Present the results to the user grouped in two blocks:
+Present the results to the user grouped in three blocks:
 
-1. **Conforming** — what meets the standard (briefly).
+1. **Conforming** — what meets the standard (briefly), including
+   the project's own additions.
 2. **Deviations** — what doesn't match, with enough detail for
    the user to understand what's going on, but without proposing
    fixes. A deviation may be an error or a conscious decision —
    only the user knows.
+3. **Wording only** — the sentences that say the same as the
+   template in other words (from *Comparison with the templates*),
+   each with its section.
 
 After presenting the report, ask the user whether they want to
-address any of the deviations. If they do, go on to *Fixing*.
+address any of the deviations, or align the wording. If they do, go
+on to *Fixing*.
 
 ## Fixing
 
@@ -274,11 +313,23 @@ the report. For each:
    `/home/claude/state/pending-tasks.md` (create the file if it does
    not exist).
 
+After the deviations, offer to align the *Wording only* sentences,
+all in one question (the user may pick some). Each alignment
+replaces only a sentence listed as wording only with the template's
+current one (translated, in a translated file), with the user's name
+and the project's slug; apply them one by one, showing each before
+and after. A sentence that carries anything of the project's own (a
+name, a path, a clause the template does not have) is not replaced
+without showing it to the user first. Nothing else in the section
+changes. Aligning is optional: wording left as it is still conforms.
+
 Some deviations are not fixed by editing the state here:
-- **A distributed copy that differs.** A core skill or
-  `handoffs/readme.md` that is not the same as Metaproject's: the
-  fix is `update.md`, which compares them and asks about each
-  difference. Offer to run it.
+
+- **A skill or a copy that differs from its upstream.** A core
+  skill or an imported skill that is not the same as its upstream,
+  or a `handoffs/readme.md` that differs from Metaproject's (in
+  substance, if translated): the fix is `update.md`, which compares them
+  and asks about each difference. Offer to run it.
 - **A gap in the handoff sequence.** Never filled. If the user
   confirms that the handoff is lost for good, write a tombstone, as
   the closing protocol of the setup template describes (a file
@@ -292,8 +343,10 @@ Some deviations are not fixed by editing the state here:
   instructions and the files in `/mnt/project/`. Tell the user what
   to change there, and why.
 
-When the user leaves a deviation as it is on purpose, propose
-recording the decision in the *Project-specific conventions* of
-`conventions.md`, so that the next audit reports it as a known
-decision. When fixing is over, write in the new handoff, at close,
+When the user leaves a deviation or some wording as it is on
+purpose, propose recording the decision in the *Project-specific
+conventions* of `conventions.md`; propose the same for the
+project's own additions the audit found. Name the section and
+describe each in a line; do not copy the text there. The next audit
+then names them as known, instead of judging them again. When fixing is over, write in the new handoff, at close,
 what was fixed and what was left.

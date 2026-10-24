@@ -46,7 +46,7 @@ it never goes into this repository.
 | State structure (which files, which are inbox files) | `templates/setup-*.md` (*State files*) | `create.md`, `migrate.md`, `audit.md`, `templates/README.md`, `templates/handoff.md`, `doc/concepts.md` |
 | Skill layers (core, imported with **Source**, personal) | `update.md` | `templates/router.md`, `create.md`, `migrate.md`, `audit.md`, `upgrade4-5.md`, `skills/README.md`, `doc/concepts.md`, `doc/skill-collections.md`, `doc/operations.md` |
 | Files distributed as copies (`skills/core/`, `handoffs/readme.md`) | `update.md` | `create.md`, `migrate.md`, `audit.md`, `upgrade.md`, `upgrade4-5.md`, `skills/README.md`, `doc/operations.md` |
-| Audit observes first and fixes only what the user approves, comparing with the templates; a state already current goes to `audit`, not `upgrade` | `audit.md` | `upgrade.md` (current version), `doc/operations.md`, `doc/troubleshooting.md` (and this file, *Maintenance releases*) |
+| Audit observes first and fixes only what the user approves, comparing with the templates (three kinds of difference) and the skills with their upstreams; a state already current goes to `audit`, not `upgrade` | `audit.md` | `upgrade.md` (current version), `doc/operations.md`, `doc/troubleshooting.md` (and this file, *Maintenance releases*) |
 | Standard conventions | `templates/conventions.md` | `audit.md`, `upgrade4-5.md`, `doc/sessions.md` (and this file, for git attribution) |
 
 Not in the table, and not to be edited for coherence: `article.md`

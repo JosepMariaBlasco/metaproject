@@ -16,14 +16,24 @@ after v5.2, v5.4 and v5.5, a state already at v5 had to copy each
 change from the templates by hand, following a paragraph in these
 notes. Now `audit` also compares `setup.md`, `closing/readme.md` and
 the standard conventions with the current templates, section by
-section and in substance (language, names and the project's own
-lines are not deviations), and ends with an optional *Fixing* step:
-deviation by deviation, it says what it would change and applies only
-what the user approves. An older version is sent to `upgrade`,
-differing core skills or `handoffs/readme.md` to `update`, a gap in
-the handoffs is never filled (a tombstone only if the user confirms
-the loss), and what lives in the Claude project instructions is left
-for the user to change.
+section, and the core and imported skills with their upstreams, byte
+for byte. A difference in the templates' sections is one of three
+kinds: a deviation (a rule or step missing or contradicted),
+*wording only* (the same said in other words), or the project's own
+(an addition); only deviations are fixed, and wording can be
+aligned. Then an optional *Fixing* step goes deviation
+by deviation, says what it would change and applies only what the
+user approves, and offers to align the wording-only sections, so
+that the next audit is quiet about them. An older version is sent to
+`upgrade`, a skill or `handoffs/readme.md` that differs from its
+upstream to `update`, a gap in the handoffs is never filled (a
+tombstone only if the user confirms the loss), and what lives in the
+Claude project instructions is left for the user to change.
+Decisions and additions of the project's own can be recorded in its
+conventions, and the next audit names them as known.
+
+Tried first on a real state (a v5 state with v5.4's wording): it found what v5.5 had asked to copy by hand. The skills
+check and the *wording only* kind come from that pilot's report.
 
 **`upgrade` on a state already at the current version** no longer
 just stops: it proposes `audit` with its *Fixing* step.
