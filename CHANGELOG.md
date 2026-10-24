@@ -5,48 +5,49 @@ Releases are numbered `vN.M`: `N` is the version of the standard
 `M` counts releases within it. A new `N` always comes with an
 `upgrade(N-1)-N.md` step that brings existing states up to date.
 
-## Unreleased
+## v5.5 — 24/10/2026
 
-- **Delivering the closing files.** v5.4 asked Claude to judge
-  whether `/mnt/user-data/outputs` reaches the user, and in an
-  environment that has both that folder and a tool for sending files
-  that was a guess (fourth upgrade). Now the rule is plain: when there
-  is a tool for sending files, deliver every file with it; package in
-  `/mnt/user-data/outputs`, and use another directory only if that one
-  cannot be written. In the setup templates, `create`, `audit`,
-  `upgrade4-5` and `doc/troubleshooting.md`. **If your state is
-  already at v5**, replace in `setup.md` the paragraph that precedes
-  the packaging commands with the template's (or, if your state has
-  not taken v5.4's yet, add it), and the pointer in step 3 of
-  *Intermediate packaging*.
+A maintenance release of standard **v5**, with no new upgrade step.
+It comes from the upgrade of eight real projects to v5 through
+`upgrade.md`, all from hand-adopted v3 states; none failed, and what
+each had to decide by hand is now written down.
 
-From the second to the eighth upgrades of real projects to v5 (from
-hybrid v3 states, one set up by hand). The changes below are to the
-operations; a state already at v5 only gets the new core skill, through
-`update`:
+**Delivering the closing files.** v5.4 asked Claude to judge whether
+`/mnt/user-data/outputs` reaches the user; in an environment with both
+that folder and a tool for sending files, that was a guess. Now the
+rule is plain: when there is a tool for sending files, deliver every
+file with it; package in `/mnt/user-data/outputs`, and use another
+directory only if that one cannot be written. In the setup templates,
+`create`, `audit`, `upgrade4-5` and `doc/troubleshooting.md`.
+
+**`write-handoff`.** The core skill's pointer to *At the end of each
+session* also covers a translated `setup.md`, so a translated state
+need not edit it.
+
+**The operations**, for states not yet at v5:
 
 - `upgrade.md`: a state may name its version in a sentence rather
-  than in the marker line; take that version, and write the marker
-  when done. A plain `v3` marker on a state that already has the
-  hand-adopted startup is the hybrid case too.
-- `upgrade.md`: a state whose files are in several languages keeps
-  each file in its own.
-- `skills/core/write-handoff.md`: its pointer to *At the end of each
-  session* also covers a translated `setup.md`, so a translated state
-  need not edit the core skill. `update` reports it as *Modified* in
-  every state once: take it.
-- `update.md`: for an imported skill the project extended locally,
-  take the upstream copy, move the local additions to a personal
-  skill, and first search the state for references into the old one.
-- `upgrade4-5`: a project in repositories that never shipped a
-  project zip is external, whatever its old setup said.
-- `upgrade4-5`: step 1 says where project-specific startup lines go;
-  step 3 creates `handoffs/readme.md` when the state has none; step 4
-  moves an intermediate-packaging procedure out of the conventions;
-  step 5 moves non-skill router rows to *State documents*, and fixes
-  the paths to and inside a skill moved to `personal/`; interim zips
-  named in another language are renamed, and the old ones removed by
-  hand at the first close.
+  than in the marker line; a plain `v3` marker on a state that already
+  has the hand-adopted startup is the hybrid case too. A state whose
+  files are in several languages keeps each file in its own.
+- `upgrade4-5`: how to pick the template (a project in repositories
+  that never shipped a project zip is external, whatever its old setup
+  said); where project-specific startup lines go; `handoffs/readme.md`
+  created when missing; an intermediate-packaging procedure moved out
+  of the conventions; non-skill router rows moved to *State
+  documents*; paths fixed when a skill moves to `personal/`; interim
+  zips named in another language renamed, the old ones removed by hand
+  at the first close.
+- `update.md`: an imported skill the project extended locally: take
+  the upstream copy, move the local additions to a personal skill, and
+  first search the state for references into the old one.
+
+**If your state is already at v5**, replace in `setup.md` the
+paragraph that precedes the packaging commands with the template's
+(or add it, if your state has not taken v5.4's), and the pointer to it
+in step 3 of *Intermediate packaging*, adapting the user's name and
+the language. Then run `update`: it reports `write-handoff.md` as
+*Modified*; take Metaproject's copy (or ask Claude to do all of it).
 
 ## v5.4 — 23/10/2026
 
